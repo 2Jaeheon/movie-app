@@ -1,9 +1,9 @@
 name: Deploy
 
 on:
-  push:
-    branches: ['main']
-
+  pull_request:
+    branches:
+      - main   # main 브랜치에 대한 PR이 열릴 때만 배포 트리거
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       group: ${{ github.workflow }}
       cancel-in-progress: true
 
-    steps:        
+    steps:
       - name: Use repository source
         uses: actions/checkout@v3
 
@@ -52,7 +52,7 @@ jobs:
         with:
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           publish_dir: ./build
-          
+
       - name: Send Slack message
         uses: 8398a7/action-slack@v3
         with:
