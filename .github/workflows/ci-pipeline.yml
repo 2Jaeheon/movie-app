@@ -1,37 +1,56 @@
-name: CI for React App
+name: Performance and Web Standards Test
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 22 ]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Lint JavaScript
-        run: npx eslint "**/*.js"
+      - name: Build project
+        run: npm run build
 
-      - name: Lint CSS
-        run: npx stylelint "**/*.css"
+      - name: Start server for Lighthouse
+        run: |
+          npm install -g serve
+          serve -s build &
+        env:
+          CI: true
 
-      - name: Validate HTML
-        run: java -jar vnu.jar --skip-non-html ./build
-
-      - name: Run Lighthouse performance tests
-        run: lighthouse https://example.com --output html --output json --output-path=./lighthouse-report.html
-
-      - name: Upload Lighthouse report
-        uses: actions/upload-artifact@v2
+      - name: Run Lighthouse for performance and web standards check
+        uses: treosh/lighthouse-ci-action@v9
         with:
-          name: lighthouse-report
-          path: ./lighthouse-report.html
+          urls: 'https://2jaeheon.site/movie-app/'
+          uploadArtifacts: true
+          artifactName: 'lighthouse-report'
+
+      - name: Validate HTML using W3C Validator
+        run: |
+          npx html-validator-cli --file ./build/index.html --verbose
+
+      - name: Upload W3C validation results
+        uses: actions/upload-artifact@v3
+        with:
+          name: w3c-validation
+          path: './build/index.html'
