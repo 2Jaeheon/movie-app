@@ -1,0 +1,10 @@
+/* src/components/Home/Home.css */
+.home {
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.home h1 {
+    color: #28a745; /* 메인 색상 */
+}
