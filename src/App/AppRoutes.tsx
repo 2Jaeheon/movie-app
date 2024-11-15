@@ -1,20 +1,18 @@
-// src/app/AppRoutes.tsx
-import React from 'react';
-import {Routes, Route, Navigate, useLocation} from 'react-router-dom';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import './AppRoutes.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import HomeView from '../views/HomeView/HomeView';
+import AuthView from '../views/AuthView/SignIn';
+import PopularView from '../views/PopularView/PopularView';
+import WishlistView from '../views/PopularView/PopularView';
 
-const AppRoutes: React.FC = () => {
-    const location = useLocation();
-
-    return (
-        <TransitionGroup>
-            <CSSTransition key={location.key} classNames="page" timeout={300}>
-                <Routes location={location}>
-                </Routes>
-            </CSSTransition>
-        </TransitionGroup>
-    );
-};
+const AppRoutes = () => (
+    <Router>
+        <Routes>
+            <Route path="/" element={<HomeView/>}/>
+            <Route path="/signin" element={<AuthView/>}/>
+            <Route path="/popular" element={<PopularView/>}/>
+            <Route path="/wishlist" element={<WishlistView/>}/>
+        </Routes>
+    </Router>
+);
 
 export default AppRoutes;
