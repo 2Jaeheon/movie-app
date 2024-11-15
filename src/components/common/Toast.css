@@ -1,0 +1,51 @@
+.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #17a2b8; /* 기본 정보 색상 */
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+
+/* 성공 색상 */
+.toast.success {
+    background-color: #28a745;
+}
+
+/* 오류 색상 */
+.toast.error {
+    background-color: #dc3545;
+}
+
+/* 경고 색상 */
+.toast.warning {
+    background-color: #ffc107;
+}
+
+/* 닫기 버튼 */
+.toast-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
