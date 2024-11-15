@@ -1,23 +1,58 @@
 .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
-    background-color: #3f7f5f; /* 초록 계열 */
+    background-color: #28a745;
     color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: bold;
 }
 
-nav a {
-    margin: 0 1rem;
-    color: white;
+.logo a {
     text-decoration: none;
+    color: white;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 1.6rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: color 0.5s;
+    font-size: large;
+}
+
+.nav-menu a.active {
+    color: #ffc107; /* 활성화된 메뉴 색상 */
+}
+
+.nav-menu a:hover {
+    color: #ffc107; /* 호버 색상 */
+}
+
+.logout-button {
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.logout-button:hover {
+    background-color: white;
+    color: #28a745;
 }

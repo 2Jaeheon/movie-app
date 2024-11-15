@@ -1,6 +1,5 @@
 // src/app/App.tsx
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
 import './App.css';
 import '../styles/global.css'
 import AppRoutes from "./AppRoutes";
