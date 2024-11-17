@@ -1,8 +1,27 @@
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+import axios from "axios";
 
-if (!API_KEY) {
-    throw new Error('Missing TMDB API Key!');
-}
+const tmdbAPI = axios.create({
+    baseURL: "https://api.themoviedb.org/3", // TMDB API 기본 URL
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
 
-export const BASE_URL = 'https://api.themoviedb.org/3';
-export const API_PARAMS = `?api_key=${API_KEY}`;
+// 요청 인터셉터: API 키 추가
+tmdbAPI.interceptors.request.use((config) => {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const currentUser = users.find(
+        (u: { email: string }) => u.email === localStorage.getItem("currentUserEmail")
+    );
+
+    if (currentUser) {
+        config.params = {
+            ...config.params,
+            api_key: currentUser.password, // 로컬 스토리지에 저장된 API 키 사용
+        };
+    }
+
+    return config;
+});
+
+export default tmdbAPI;

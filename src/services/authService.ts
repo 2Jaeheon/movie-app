@@ -4,8 +4,10 @@ export const authService = {
         const user = users.find(
             (u: { email: string; password: string }) => u.email === email && u.password === password
         );
+
         if (user) {
             localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("currentUserEmail", email); // 현재 사용자 저장
             return true;
         }
         return false;
@@ -19,9 +21,15 @@ export const authService = {
             return false; // 이메일 중복
         }
 
-        // 새 사용자 저장
         const updatedUsers = [...users, {email, password}];
         localStorage.setItem("users", JSON.stringify(updatedUsers));
         return true;
+    },
+
+    getCurrentUserApiKey: (): string | null => {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const currentUserEmail = localStorage.getItem("currentUserEmail");
+        const currentUser = users.find((u: { email: string }) => u.email === currentUserEmail);
+        return currentUser ? currentUser.password : null;
     },
 };
