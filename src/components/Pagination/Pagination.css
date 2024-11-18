@@ -1,2 +1,43 @@
-export {
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1.5rem;
+    font-family: "Arial", sans-serif;
+}
+
+.pagination-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #946ee3, #bc9cec); /* 보라색 그라데이션 */
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.pagination-button:disabled {
+    background: #6b46c1; /* 비활성화 상태 보라색 */
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagination-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: linear-gradient(90deg, #6b46c1, #805ad5); /* 더 진한 보라색 */
+    box-shadow: 0 4px 10px rgba(128, 90, 213, 0.5);
+}
+
+.pagination-info {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #a87de3; /* 초록색 포인트 */
+    background: rgba(255, 255, 255, 0.1); /* 약간 투명한 배경 */
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
