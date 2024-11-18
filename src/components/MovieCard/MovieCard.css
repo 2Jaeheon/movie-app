@@ -66,3 +66,17 @@
     gap: 0.3rem;
 }
 
+
+.no-image-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    height: 300px; /* 이미지 크기에 맞게 설정 */
+    width: 100%; /* 이미지 비율에 맞게 설정 */
+    border-radius: 10px;
+    text-align: center;
+}

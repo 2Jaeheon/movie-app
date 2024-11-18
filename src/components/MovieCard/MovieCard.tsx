@@ -1,3 +1,4 @@
+import React from "react";
 import {Movie} from "../../models/Movie";
 import "./MovieCard.css";
 
@@ -6,13 +7,23 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({movie}) => {
+    const posterUrl = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : null;
+
     return (
         <div className="movie-card">
-            <img
-                className="movie-poster"
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-            />
+            {posterUrl ? (
+                <img
+                    className="movie-poster"
+                    src={posterUrl}
+                    alt={movie.title}
+                />
+            ) : (
+                <div className="no-image-placeholder">
+                    이미지 없음
+                </div>
+            )}
             <div className="movie-info">
                 <h3 className="movie-title">{movie.title}</h3>
                 <div className="movie-rating">
