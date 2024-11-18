@@ -2,7 +2,7 @@
 .home-view {
     background-color: #121212;
     color: white;
-    padding: 1.2rem;
+    padding: 1.3rem;
 }
 
 /* 배너 스타일 */
@@ -129,6 +129,61 @@
 .movie-card:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.error-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #e53935;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #ffab91;
+}
+
+.error-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #eeeeee;
+}
+
+.retry-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    background: linear-gradient(90deg, #43a047, #66bb6a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.retry-button:hover {
+    background: linear-gradient(90deg, #388e3c, #43a047);
+    transform: scale(1.05);
+}
+
+/* MovieList와 동일한 fade-in 효과 */
+.movie-lists {
+    margin-top: 2rem;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
 }
 
 /* 애니메이션 */
