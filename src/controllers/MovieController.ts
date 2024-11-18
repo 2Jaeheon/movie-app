@@ -181,3 +181,33 @@ export const fetchClassicMovies = async (): Promise<Movie[]> => {
         return [];
     }
 };
+
+export const fetchPopularMoviesPaginated = async (page: number): Promise<Movie[]> => {
+    try {
+        const response = await tmdbAPI.get(Endpoints.popularMovies, {
+            params: {
+                language: "ko-KR",
+                page,
+            },
+        });
+        return response.data.results; // 해당 페이지의 영화 데이터 반환
+    } catch (error) {
+        console.error(`Failed to fetch movies for page ${page}:`, error);
+        return [];
+    }
+};
+
+export const fetchPopularMoviesInfinite = async (page: number): Promise<Movie[]> => {
+    try {
+        const response = await tmdbAPI.get(Endpoints.popularMovies, {
+            params: {
+                language: "ko-KR",
+                page,
+            },
+        });
+        return response.data.results; // 현재 페이지의 영화 데이터 반환
+    } catch (error) {
+        console.error(`Failed to fetch movies for page ${page}:`, error);
+        return [];
+    }
+};
