@@ -2,7 +2,7 @@
 .home-view {
     background-color: #121212;
     color: white;
-    padding: 1.2rem;
+    padding: 1.3rem;
 }
 
 /* 배너 스타일 */
@@ -175,6 +175,15 @@
 .retry-button:hover {
     background: linear-gradient(90deg, #388e3c, #43a047);
     transform: scale(1.05);
+}
+
+/* MovieList와 동일한 fade-in 효과 */
+.movie-lists {
+    margin-top: 2rem;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
 }
 
 /* 애니메이션 */

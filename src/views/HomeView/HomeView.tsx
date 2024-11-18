@@ -146,12 +146,14 @@ const HomeView: React.FC = () => {
                     </div>
                 </div>
             )}
-            <MovieList title="Now Playing Movies" movies={nowPlayingMovies} onMovieClick={handleMoreInfo}/>
-            <MovieList title="Popular Movies" movies={popularMovies} onMovieClick={handleMoreInfo}/>
-            <MovieList title="Action Movies" movies={actionMovies} onMovieClick={handleMoreInfo}/>
-            <MovieList title="Romance Movies" movies={romanceMovies} onMovieClick={handleMoreInfo}/>
-            <MovieList title="Drama Movies" movies={dramaMovies} onMovieClick={handleMoreInfo}/>
-            <MovieList title="Classic Movies" movies={classicMovies} onMovieClick={handleMoreInfo}/>
+            <div className="movie-lists fade-in">
+                <MovieList title="Now Playing Movies" movies={nowPlayingMovies} onMovieClick={handleMoreInfo}/>
+                <MovieList title="Popular Movies" movies={popularMovies} onMovieClick={handleMoreInfo}/>
+                <MovieList title="Action Movies" movies={actionMovies} onMovieClick={handleMoreInfo}/>
+                <MovieList title="Romance Movies" movies={romanceMovies} onMovieClick={handleMoreInfo}/>
+                <MovieList title="Drama Movies" movies={dramaMovies} onMovieClick={handleMoreInfo}/>
+                <MovieList title="Classic Movies" movies={classicMovies} onMovieClick={handleMoreInfo}/>
+            </div>
 
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={selectedMovie?.title}>
