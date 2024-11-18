@@ -211,3 +211,41 @@ export const fetchPopularMoviesInfinite = async (page: number): Promise<Movie[]>
         return [];
     }
 };
+
+export const fetchMoviesBySearch = async (query: string, page: number): Promise<Movie[]> => {
+    try {
+        const response = await tmdbAPI.get("/search/movie", {
+            params: {query, page, language: "ko-KR"},
+        });
+        return response.data.results;
+    } catch (error) {
+        console.error("Failed to fetch search results:", error);
+        return [];
+    }
+};
+
+export const fetchMoviesByFilters = async (filters: {
+    genre: string;
+    rating: string;
+    sort: string;
+    country?: string; // country 추가
+    page: number;
+}): Promise<Movie[]> => {
+    try {
+        const {genre, rating, sort, country, page} = filters;
+        const response = await tmdbAPI.get("/discover/movie", {
+            params: {
+                with_genres: genre,
+                "vote_average.gte": rating,
+                sort_by: sort,
+                with_original_language: country, // 국가 필터 적용
+                page,
+                language: "ko-KR",
+            },
+        });
+        return response.data.results;
+    } catch (error) {
+        console.error("Failed to fetch filtered movies:", error);
+        return [];
+    }
+};
