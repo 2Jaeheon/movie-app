@@ -17,7 +17,6 @@ import "./HomeView.css";
 
 const HomeView: React.FC = () => {
     const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([]);
-    const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
     const [actionMovies, setActionMovies] = useState<Movie[]>([]);
     const [romanceMovies, setRomanceMovies] = useState<Movie[]>([]);
@@ -42,7 +41,6 @@ const HomeView: React.FC = () => {
                 const classics = await fetchClassicMovies();
 
                 setNowPlayingMovies(nowPlaying);
-                setTrendingMovies(trending);
                 setPopularMovies(popular);
                 setActionMovies(action);
                 setRomanceMovies(romance);
