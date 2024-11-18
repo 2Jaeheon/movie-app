@@ -1,8 +1,102 @@
-.search {
-    padding: 20px;
-    background-color: #f8f9fa;
+.search-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 16px;
+    background: rgba(28, 28, 43, 0.95);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    max-width: 1200px;
+    margin: 2rem auto;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-.search h1 {
-    color: #28a745; /* 메인 색상 */
+.filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 1rem;
+    color: #bdbdbd;
+    font-weight: 600;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+}
+
+.filter-group label:hover {
+    color: #f3e5f5;
+}
+
+.filter-group select {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    background: #2c2c3c;
+    color: #fff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-group select:hover {
+    border-color: #ab47bc;
+    box-shadow: 0 4px 12px rgba(171, 71, 188, 0.4);
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.search-button,
+.reset-button {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-button {
+    background: linear-gradient(135deg, #6a1b9a, #7e57c2);
+    color: #fff;
+}
+
+.search-button:hover {
+    background: linear-gradient(135deg, #7e57c2, #ab47bc);
+    box-shadow: 0 8px 20px rgba(171, 71, 188, 0.5);
+}
+
+.reset-button {
+    background: linear-gradient(135deg, #3a3a3a, #424242);
+    color: #fff;
+}
+
+.reset-button:hover {
+    background: linear-gradient(135deg, #424242, #616161);
+    box-shadow: 0 8px 20px rgba(97, 97, 97, 0.5);
+}
+
+/* Fade-in 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
