@@ -10,9 +10,9 @@ import {
     fetchDramaMovies,
     fetchClassicMovies,
 } from "../../controllers/MovieController";
-import {usePreference} from "../../hooks/usePreference"; // usePreference 훅 추가
+import {usePreference} from "../../hooks/usePreference";
 import MovieList from "../../components/MovieList/MovieList";
-import Modal from "../../components/common/Modal";
+import MovieModal from "../../components/MovieModal/MovieModal";
 import {Movie} from "../../models/Movie";
 import "./HomeView.css";
 
@@ -26,11 +26,11 @@ const HomeView: React.FC = () => {
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [currentBannerMovie, setCurrentBannerMovie] = useState<Movie | null>(null);
     const [movieDetails, setMovieDetails] = useState<any | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // usePreference에서 추가/제거 로직 가져오기
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference();
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -62,14 +62,13 @@ const HomeView: React.FC = () => {
         fetchMovies();
     }, []);
 
-
     const handleMoreInfo = async (movie: Movie) => {
         setSelectedMovie(movie);
         try {
             const details = await fetchMovieDetails(movie.id);
             setMovieDetails(details);
 
-            let trailerUrl = await fetchMovieVideos(movie.id);
+            const trailerUrl = await fetchMovieVideos(movie.id);
             setVideoUrl(trailerUrl);
             setIsModalOpen(true);
         } catch {
@@ -90,11 +89,11 @@ const HomeView: React.FC = () => {
         return wishlist.some((m) => m.id === movie.id);
     };
 
-    const handleWishlistAction = (movie: Movie) => {
-        if (isInWishlist(movie)) {
-            removeFromWishlist(movie.id);
-        } else {
-            addToWishlist(movie);
+    const handleWishlistToggle = () => {
+        if (selectedMovie) {
+            isInWishlist(selectedMovie)
+                ? removeFromWishlist(selectedMovie.id)
+                : addToWishlist(selectedMovie);
         }
     };
 
@@ -136,24 +135,30 @@ const HomeView: React.FC = () => {
                                 onClick={async () => {
                                     if (currentBannerMovie) {
                                         try {
-                                            let trailerUrl = await fetchMovieVideos(currentBannerMovie.id);
+                                            const trailerUrl = await fetchMovieVideos(currentBannerMovie.id);
+
                                             if (trailerUrl) {
-                                                if (trailerUrl.includes("youtube.com")) {
-                                                    trailerUrl += trailerUrl.includes("?") ? "&autoplay=1" : "?autoplay=1";
-                                                }
-                                                window.open(trailerUrl, "_blank");
+                                                const parsedUrl = new URL(trailerUrl);
+
+                                                // URL에 autoplay 쿼리 파라미터 추가
+                                                parsedUrl.searchParams.set("autoplay", "1");
+                                                window.open(parsedUrl.toString(), "_blank");
                                             } else {
                                                 alert("Trailer not available.");
                                             }
-                                        } catch {
+                                        } catch (error) {
                                             alert("트레일러를 가져오는데 실패했습니다.");
+                                            console.error("Error fetching trailer URL:", error);
                                         }
                                     }
                                 }}
                             >
                                 ▶ Play
                             </button>
-                            <button className="info-button" onClick={() => handleMoreInfo(currentBannerMovie!)}>
+                            <button
+                                className="info-button"
+                                onClick={() => handleMoreInfo(currentBannerMovie!)}
+                            >
                                 ℹ More Info
                             </button>
                         </div>
@@ -169,56 +174,16 @@ const HomeView: React.FC = () => {
                 <MovieList title="Classic Movies" movies={classicMovies} onMovieClick={handleMoreInfo}/>
             </div>
 
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={selectedMovie?.title}>
-                    <div className="custom-modal-content">
-                        {videoUrl && (
-                            <div className="video-wrapper">
-                                <iframe
-                                    src={videoUrl}
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                        )}
-                        {movieDetails && (
-                            <div className="movie-details">
-                                <p><strong>Overview:</strong> {movieDetails.overview}</p>
-                                <p><strong>Release Date:</strong> {movieDetails.release_date}</p>
-                                <p><strong>Rating:</strong> ⭐ {movieDetails.vote_average}</p>
-                                <p>
-                                    <strong>Director:</strong>{" "}
-                                    {movieDetails.credits?.crew?.find((crew: any) => crew.job === "Director")?.name}
-                                </p>
-                                <p>
-                                    <strong>Cast:</strong>{" "}
-                                    {movieDetails.credits?.cast?.slice(0, 5).map((actor: any) => actor.name).join(", ")}
-                                </p>
-                                <p>
-                                    <strong>Genres:</strong>{" "}
-                                    {movieDetails.genres?.map((genre: any) => genre.name).join(", ")}
-                                </p>
-                                <div className="modal-actions">
-                                    <button className="modal-button close" onClick={handleCloseModal}>
-                                        Close
-                                    </button>
-                                    <button
-                                        className="modal-button action"
-                                        data-in-wishlist={selectedMovie && isInWishlist(selectedMovie)}
-                                        onClick={() => selectedMovie && handleWishlistAction(selectedMovie)}
-                                    >
-                                        {selectedMovie && isInWishlist(selectedMovie)
-                                            ? "Remove from Wishlist"
-                                            : "Add to Wishlist"}
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Modal>
-            )}
+            {/* MovieModal 사용 */}
+            <MovieModal
+                isOpen={isModalOpen}
+                movie={selectedMovie}
+                movieDetails={movieDetails}
+                videoUrl={videoUrl}
+                onClose={handleCloseModal}
+                onWishlistToggle={handleWishlistToggle}
+                isInWishlist={selectedMovie ? isInWishlist(selectedMovie) : false}
+            />
         </div>
     );
 };
