@@ -10,7 +10,7 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    height: 600px;
+    height: 500px; /* 기본 크기 */
     display: flex;
     align-items: flex-end;
     justify-content: start;
@@ -28,19 +28,19 @@
 }
 
 .banner-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem; /* 기본 크기 */
     font-weight: bold;
     line-height: 1.2;
-    color: #f1f1f1; /* 밝은 색으로 변경 */
+    color: #f1f1f1;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
     animation: slideInFromLeft 1s ease-out;
 }
 
 .banner-description {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 1rem 0;
     line-height: 1.5;
-    color: rgba(230, 230, 230, 0.85); /* 약간 더 어두운 회색 */
+    color: rgba(230, 230, 230, 0.85);
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
@@ -63,7 +63,7 @@
 }
 
 .play-button {
-    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 톤 줄임 */
+    background: linear-gradient(90deg, #43a047, #66bb6a);
     color: white;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .info-button {
-    background: rgba(240, 240, 240, 0.9); /* 밝은 회색 */
+    background: rgba(240, 240, 240, 0.9);
     color: black;
 }
 
@@ -84,100 +84,7 @@
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.6);
 }
 
-/* 모달 스타일 */
-.custom-modal-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    color: #f5f5f5; /* 모달 텍스트 색상 변경 */
-}
-
-.movie-details p {
-    margin: 0.5rem 0;
-    color: black; /* 밝은 회색 */
-}
-
-.movie-details strong {
-    color: #43a047; /* 초록색 강조 */
-}
-
-/* 비디오 스타일 */
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 비율 */
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* 영화 포스터 스타일 */
-.movie-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-.error-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #121212;
-    color: #ffffff;
-    text-align: center;
-    padding: 2rem;
-}
-
-.error-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #e53935;
-}
-
-.error-message {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: #ffab91;
-}
-
-.error-description {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    color: #eeeeee;
-}
-
-.retry-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    background: linear-gradient(90deg, #43a047, #66bb6a);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.retry-button:hover {
-    background: linear-gradient(90deg, #388e3c, #43a047);
-    transform: scale(1.05);
-}
-
-/* MovieList와 동일한 fade-in 효과 */
+/* 영화 목록 */
 .movie-lists {
     margin-top: 2rem;
 }
@@ -186,25 +93,121 @@
     animation: fadeIn 1s ease-in-out;
 }
 
-/* 애니메이션 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .banner {
+        height: 350px; /* 모바일 배너 높이 줄임 */
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
+
+    .banner-title {
+        font-size: 2rem; /* 모바일 타이틀 크기 축소 */
+    }
+
+    .banner-description {
+        font-size: 0.9rem; /* 모바일 설명 크기 축소 */
+    }
+
+    .play-button,
+    .info-button {
+        font-size: 0.9rem; /* 버튼 크기 축소 */
+        padding: 0.6rem 1.5rem;
     }
 }
 
-@keyframes slideInFromLeft {
+@media (max-width: 480px) {
+    .banner {
+        height: 300px; /* 더 작은 화면 배너 */
+    }
+
+    .banner-content {
+        padding: 1.5rem; /* 배너 내부 여백 축소 */
+    }
+
+    .banner-title {
+        font-size: 1.8rem; /* 타이틀 더 작게 */
+    }
+
+    .banner-description {
+        font-size: 0.8rem; /* 설명 크기 축소 */
+    }
+
+    .play-button,
+    .info-button {
+        font-size: 0.8rem; /* 버튼 텍스트 크기 */
+        padding: 0.5rem 1.2rem;
+    }
+}
+
+/* 에러 화면 스타일 */
+.error-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #121212; /* 어두운 배경 */
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    animation: fadeIn 1s ease-in-out; /* 부드러운 진입 애니메이션 */
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e53935; /* 빨간색 포인트 */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #f5c518; /* 경고 색상 */
+}
+
+.error-description {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 2rem;
+}
+
+/* 다시 시도하기 버튼 */
+.retry-button {
+    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라디언트 */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.retry-button:hover {
+    background: linear-gradient(90deg, #388e3c, #43a047);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.retry-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* 에러 화면 진입 애니메이션 */
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateY(-10%);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }

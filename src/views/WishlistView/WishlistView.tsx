@@ -49,28 +49,29 @@ const WishlistView: React.FC = () => {
 
             {wishlist.length === 0 ? (
                 <div className="wishlist-empty">
-                    <p>Your wishlist is empty. Add movies you love!</p>
+                    <p>Your wishlist is empty.<br/>Add movies you love!</p>
                 </div>
             ) : (
                 <div className="wishlist-grid">
                     {wishlist.map((movie) => (
-                        <div key={movie.id} className="wishlist-card">
-                            <div
-                                className="wishlist-movie"
-                                onClick={() => handleMovieClick(movie)}
-                            >
-                                <MovieCard movie={movie}/>
-                                <div className="wishlist-overlay">
-                                    <button
-                                        className="remove-btn"
-                                        onClick={(e) => handleWishlistRemove(movie.id, e)}
-                                    >
-                                        ✖
-                                    </button>
+                            <div key={movie.id} className="wishlist-card">
+                                <div
+                                    className="wishlist-movie"
+                                    onClick={() => handleMovieClick(movie)}
+                                >
+                                    <MovieCard movie={movie}/>
+                                    <div className="wishlist-overlay">
+                                        <button
+                                            className="remove-btn"
+                                            onClick={(e) => handleWishlistRemove(movie.id, e)}
+                                        >
+                                            ✖
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    )}
                 </div>
             )}
 
@@ -86,7 +87,8 @@ const WishlistView: React.FC = () => {
                 isInWishlist={!!selectedMovie}
             />
         </div>
-    );
+    )
+        ;
 };
 
 export default WishlistView;

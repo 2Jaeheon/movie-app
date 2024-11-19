@@ -5,9 +5,9 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-    width: 200px; /* 고정 크기 */
-    height: 300px; /* 고정 크기 */
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 2 / 3; /* 가로/세로 비율 고정 */
 }
 
 /* 호버 시 크기 조정 */
@@ -19,11 +19,9 @@
 
 /* 영화 포스터 */
 .movie-poster {
-    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px;
 }
 
 /* 영화 정보 */
@@ -58,7 +56,7 @@
 /* 영화 별점 */
 .movie-rating {
     font-size: 0.9rem;
-    color: #a87de3; /* 별점 색상 (노란색) */
+    color: #a87de3;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -66,7 +64,7 @@
     gap: 0.3rem;
 }
 
-
+/* 이미지가 없을 때 */
 .no-image-placeholder {
     display: flex;
     justify-content: center;
@@ -75,8 +73,8 @@
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
-    height: 300px; /* 이미지 크기에 맞게 설정 */
-    width: 100%; /* 이미지 비율에 맞게 설정 */
-    border-radius: 10px;
+    width: 100%;
+    height: 100%;
     text-align: center;
+    border-radius: 12px;
 }

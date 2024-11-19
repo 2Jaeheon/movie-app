@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import InputField from "../../components/common/InputField";
 import {useAuth} from "../../hooks/useAuth";
+import Toast from "../../components/common/Toast"; // Toast 컴포넌트 임포트
 import "./AuthView.css";
 
 const SignIn: React.FC = () => {
     const [isSignUp, setIsSignUp] = useState(false); // 모드 전환
+    const [toastMessage, setToastMessage] = useState<string>(""); // Toast 메시지
+    const [toastVisible, setToastVisible] = useState<boolean>(false); // Toast 표시 여부
+    const [toastType, setToastType] = useState<"success" | "error">("success"); // Toast 타입
 
-    // 회원가입 성공 시 로그인 화면으로 전환
     const {
         email,
         setEmail,
@@ -17,7 +20,16 @@ const SignIn: React.FC = () => {
         error,
         signIn,
         signUp,
-    } = useAuth(() => setIsSignUp(false));
+    } = useAuth(() => {
+        setToastType("success");
+        setToastMessage(isSignUp ? "Account created successfully!" : "Logged in successfully!");
+        setToastVisible(true);
+        if (isSignUp) setIsSignUp(false); // 회원가입 성공 시 로그인 화면으로 전환
+    });
+
+    const handleToastClose = () => {
+        setToastVisible(false);
+    };
 
     return (
         <div className="auth-background">
@@ -99,6 +111,14 @@ const SignIn: React.FC = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Toast 컴포넌트 */}
+            <Toast
+                message={toastMessage}
+                type={toastType}
+                isVisible={toastVisible}
+                onClose={handleToastClose}
+            />
         </div>
     );
 };
