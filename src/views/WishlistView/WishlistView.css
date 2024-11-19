@@ -1,0 +1,97 @@
+/* 전체 배경 및 뷰 스타일 */
+.wishlist-view {
+    padding: 2rem;
+    background-color: #121212; /* 어두운 배경 */
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* 제목 스타일 */
+.wishlist-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f1c40f; /* 밝은 노란색 강조 */
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* 비어 있을 때 메시지 */
+.empty-message {
+    font-size: 1.3rem;
+    color: #757575; /* 중간 회색 */
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* 위시리스트 카드 컨테이너 */
+.wishlist-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* 개별 카드 스타일 */
+.wishlist-card {
+    background: rgba(50, 50, 70, 0.9); /* 반투명 카드 */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+/* 카드 호버 효과 */
+.wishlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8);
+}
+
+/* 제거 버튼 스타일 */
+.wishlist-remove-button {
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #e53935, #ef5350); /* 빨간 버튼 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* 버튼 크기를 카드에 맞춤 */
+    max-width: 180px;
+    text-align: center;
+}
+
+/* 제거 버튼 호버 효과 */
+.wishlist-remove-button:hover {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.5);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .wishlist-title {
+        font-size: 2rem;
+    }
+
+    .wishlist-remove-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
