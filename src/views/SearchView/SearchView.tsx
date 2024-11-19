@@ -9,10 +9,10 @@ import {
 } from "../../controllers/MovieController";
 import {Movie} from "../../models/Movie";
 import {useInfiniteScroll} from "../../hooks/useInfiniteScroll";
-import Modal from "../../components/common/Modal";
-import MovieCard from "../../components/MovieCard/MovieCard";
-import "./SearchView.css";
 import {usePreference} from "../../hooks/usePreference";
+import MovieCard from "../../components/MovieCard/MovieCard";
+import MovieModal from "../../components/MovieModal/MovieModal";
+import "./SearchView.css";
 
 const SearchView: React.FC = () => {
     const [searchMode, setSearchMode] = useState<"bar" | "filter" | null>(null);
@@ -24,15 +24,16 @@ const SearchView: React.FC = () => {
         genre: "",
         rating: "",
         sort: "",
-        country: "", // 국가 필터 추가
+        country: "",
     });
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const [movieDetails, setMovieDetails] = useState<any | null>(null);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [isFilterApplied, setIsFilterApplied] = useState(false);
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // usePreference에서 추가/제거 로직 가져오기
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // Wishlist 관련 로직 가져오기
 
     const {isFetching} = useInfiniteScroll(async () => {
         if (searchMode === "bar" && searchQuery) {
@@ -73,7 +74,7 @@ const SearchView: React.FC = () => {
     };
 
     const handleFilterReset = () => {
-        setFilters({genre: "", rating: "", sort: "", country: ""}); // 국가 필터 초기화 포함
+        setFilters({genre: "", rating: "", sort: "", country: ""});
         setIsFilterApplied(false);
         setMovies([]);
     };
@@ -84,7 +85,7 @@ const SearchView: React.FC = () => {
             const details = await fetchMovieDetails(movie.id);
             setMovieDetails(details);
 
-            let trailerUrl = await fetchMovieVideos(movie.id);
+            const trailerUrl = await fetchMovieVideos(movie.id);
             setVideoUrl(trailerUrl);
             setIsModalOpen(true);
         } catch {
@@ -101,8 +102,6 @@ const SearchView: React.FC = () => {
         }, 300);
     };
 
-    const [showScrollToTop, setShowScrollToTop] = useState(false);
-
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -114,11 +113,11 @@ const SearchView: React.FC = () => {
         return wishlist.some((m) => m.id === movie.id);
     };
 
-    const handleWishlistAction = (movie: Movie) => {
-        if (isInWishlist(movie)) {
-            removeFromWishlist(movie.id);
-        } else {
-            addToWishlist(movie);
+    const handleWishlistToggle = () => {
+        if (selectedMovie) {
+            isInWishlist(selectedMovie)
+                ? removeFromWishlist(selectedMovie.id)
+                : addToWishlist(selectedMovie);
         }
     };
 
@@ -181,76 +180,16 @@ const SearchView: React.FC = () => {
             {loading && <p className="loading-text">로딩 중...</p>}
             {isFetching && <p className="loading-text">더 많은 데이터를 불러오는 중...</p>}
 
-            {isModalOpen && selectedMovie && (
-                <Modal
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                    title={selectedMovie.title}
-                >
-                    <div className="custom-modal-content">
-                        {videoUrl && (
-                            <div className="video-wrapper">
-                                <iframe
-                                    src={videoUrl}
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                        )}
-                        {movieDetails && (
-                            <div className="movie-details">
-                                <p>
-                                    <strong>Overview:</strong>{" "}
-                                    {movieDetails.overview}
-                                </p>
-                                <p>
-                                    <strong>Release Date:</strong>{" "}
-                                    {movieDetails.release_date}
-                                </p>
-                                <p>
-                                    <strong>Rating:</strong> ⭐{" "}
-                                    {movieDetails.vote_average}
-                                </p>
-                                <p>
-                                    <strong>Director:</strong>{" "}
-                                    {movieDetails.credits?.crew?.find(
-                                        (crew: any) => crew.job === "Director"
-                                    )?.name}
-                                </p>
-                                <p>
-                                    <strong>Cast:</strong>{" "}
-                                    {movieDetails.credits?.cast
-                                        ?.slice(0, 5)
-                                        .map((actor: any) => actor.name)
-                                        .join(", ")}
-                                </p>
-                                <p>
-                                    <strong>Genres:</strong>{" "}
-                                    {movieDetails.genres
-                                        ?.map((genre: any) => genre.name)
-                                        .join(", ")}
-                                </p>
-                                <div className="modal-actions">
-                                    <button className="modal-button close" onClick={handleCloseModal}>
-                                        Close
-                                    </button>
-                                    <button
-                                        className="modal-button action"
-                                        data-in-wishlist={selectedMovie && isInWishlist(selectedMovie)}
-                                        onClick={() => selectedMovie && handleWishlistAction(selectedMovie)}
-                                    >
-                                        {selectedMovie && isInWishlist(selectedMovie)
-                                            ? "Remove from Wishlist"
-                                            : "Add to Wishlist"}
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Modal>
-            )}
+            {/* MovieModal 사용 */}
+            <MovieModal
+                isOpen={isModalOpen}
+                movie={selectedMovie}
+                movieDetails={movieDetails}
+                videoUrl={videoUrl}
+                onClose={handleCloseModal}
+                onWishlistToggle={handleWishlistToggle}
+                isInWishlist={selectedMovie ? isInWishlist(selectedMovie) : false}
+            />
 
             {showScrollToTop && (
                 <button className="scroll-to-top" onClick={scrollToTop}>
