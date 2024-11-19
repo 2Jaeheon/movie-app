@@ -11,6 +11,7 @@ import {usePagination} from "../../hooks/usePagination";
 import {useInfiniteScroll} from "../../hooks/useInfiniteScroll";
 import {Movie} from "../../models/Movie";
 import "./PopularView.css";
+import {usePreference} from "../../hooks/usePreference";
 
 const PopularView: React.FC = () => {
     const [isPagination, setIsPagination] = useState<boolean | null>(null); // 모드 선택 상태
@@ -22,6 +23,8 @@ const PopularView: React.FC = () => {
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [loadedMovieIds, setLoadedMovieIds] = useState<Set<number>>(new Set()); // 중복 방지
+
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // usePreference에서 추가/제거 로직 가져오기
 
     // 페이지네이션 훅
     const {currentPage, totalPages, setTotalPages, goToNextPage, goToPrevPage, setPage} =
@@ -49,6 +52,19 @@ const PopularView: React.FC = () => {
             setLoading(false);
         }
     });
+
+    const isInWishlist = (movie: Movie) => {
+        return wishlist.some((m) => m.id === movie.id);
+    };
+
+    const handleWishlistAction = (movie: Movie) => {
+        if (isInWishlist(movie)) {
+            removeFromWishlist(movie.id);
+        } else {
+            addToWishlist(movie);
+        }
+    };
+
 
     // 페이지네이션 데이터 로드
     const loadMoviesPaginated = async (page: number) => {
@@ -193,6 +209,21 @@ const PopularView: React.FC = () => {
                                     <strong>Genres:</strong>{" "}
                                     {movieDetails.genres?.map((genre: any) => genre.name).join(", ")}
                                 </p>
+
+                                <div className="modal-actions">
+                                    <button className="modal-button close" onClick={handleCloseModal}>
+                                        Close
+                                    </button>
+                                    <button
+                                        className="modal-button action"
+                                        data-in-wishlist={selectedMovie && isInWishlist(selectedMovie)}
+                                        onClick={() => selectedMovie && handleWishlistAction(selectedMovie)}
+                                    >
+                                        {selectedMovie && isInWishlist(selectedMovie)
+                                            ? "Remove from Wishlist"
+                                            : "Add to Wishlist"}
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>

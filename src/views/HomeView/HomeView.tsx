@@ -10,6 +10,7 @@ import {
     fetchDramaMovies,
     fetchClassicMovies,
 } from "../../controllers/MovieController";
+import {usePreference} from "../../hooks/usePreference"; // usePreference 훅 추가
 import MovieList from "../../components/MovieList/MovieList";
 import Modal from "../../components/common/Modal";
 import {Movie} from "../../models/Movie";
@@ -28,6 +29,8 @@ const HomeView: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // usePreference에서 추가/제거 로직 가져오기
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -59,6 +62,7 @@ const HomeView: React.FC = () => {
         fetchMovies();
     }, []);
 
+
     const handleMoreInfo = async (movie: Movie) => {
         setSelectedMovie(movie);
         try {
@@ -80,6 +84,18 @@ const HomeView: React.FC = () => {
             setMovieDetails(null);
             setVideoUrl(null);
         }, 300);
+    };
+
+    const isInWishlist = (movie: Movie) => {
+        return wishlist.some((m) => m.id === movie.id);
+    };
+
+    const handleWishlistAction = (movie: Movie) => {
+        if (isInWishlist(movie)) {
+            removeFromWishlist(movie.id);
+        } else {
+            addToWishlist(movie);
+        }
     };
 
     if (error) {
@@ -188,8 +204,14 @@ const HomeView: React.FC = () => {
                                     <button className="modal-button close" onClick={handleCloseModal}>
                                         Close
                                     </button>
-                                    <button className="modal-button action" onClick={() => alert("Action!")}>
-                                        Add to Wishlist
+                                    <button
+                                        className="modal-button action"
+                                        data-in-wishlist={selectedMovie && isInWishlist(selectedMovie)}
+                                        onClick={() => selectedMovie && handleWishlistAction(selectedMovie)}
+                                    >
+                                        {selectedMovie && isInWishlist(selectedMovie)
+                                            ? "Remove from Wishlist"
+                                            : "Add to Wishlist"}
                                     </button>
                                 </div>
                             </div>

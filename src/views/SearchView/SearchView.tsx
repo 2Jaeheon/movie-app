@@ -12,6 +12,7 @@ import {useInfiniteScroll} from "../../hooks/useInfiniteScroll";
 import Modal from "../../components/common/Modal";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import "./SearchView.css";
+import {usePreference} from "../../hooks/usePreference";
 
 const SearchView: React.FC = () => {
     const [searchMode, setSearchMode] = useState<"bar" | "filter" | null>(null);
@@ -30,6 +31,8 @@ const SearchView: React.FC = () => {
     const [movieDetails, setMovieDetails] = useState<any | null>(null);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [isFilterApplied, setIsFilterApplied] = useState(false);
+
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // usePreference에서 추가/제거 로직 가져오기
 
     const {isFetching} = useInfiniteScroll(async () => {
         if (searchMode === "bar" && searchQuery) {
@@ -105,6 +108,18 @@ const SearchView: React.FC = () => {
             top: 0,
             behavior: "smooth",
         });
+    };
+
+    const isInWishlist = (movie: Movie) => {
+        return wishlist.some((m) => m.id === movie.id);
+    };
+
+    const handleWishlistAction = (movie: Movie) => {
+        if (isInWishlist(movie)) {
+            removeFromWishlist(movie.id);
+        } else {
+            addToWishlist(movie);
+        }
     };
 
     useEffect(() => {
@@ -218,19 +233,17 @@ const SearchView: React.FC = () => {
                                         .join(", ")}
                                 </p>
                                 <div className="modal-actions">
-                                    <button
-                                        className="modal-button close"
-                                        onClick={handleCloseModal}
-                                    >
+                                    <button className="modal-button close" onClick={handleCloseModal}>
                                         Close
                                     </button>
                                     <button
                                         className="modal-button action"
-                                        onClick={() =>
-                                            alert("Action! Wishlist 추가")
-                                        }
+                                        data-in-wishlist={selectedMovie && isInWishlist(selectedMovie)}
+                                        onClick={() => selectedMovie && handleWishlistAction(selectedMovie)}
                                     >
-                                        Add to Wishlist
+                                        {selectedMovie && isInWishlist(selectedMovie)
+                                            ? "Remove from Wishlist"
+                                            : "Add to Wishlist"}
                                     </button>
                                 </div>
                             </div>
