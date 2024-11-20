@@ -139,7 +139,7 @@ const SearchView: React.FC = () => {
     if (searchMode === null) {
         return (
             <div className="search-mode-selection">
-                <h2>검색을 어떻게 진행하시겠습니까?</h2>
+                <h2>어떻게 검색하실래요?</h2>
                 <div className="search-mode-buttons">
                     <button
                         className="mode-button"
@@ -160,7 +160,7 @@ const SearchView: React.FC = () => {
 
     return (
         <div className="search-view">
-            <h1 className="search-title">검색 페이지</h1>
+            <h1 className="search-title">Search</h1>
             {searchMode === "bar" && <SearchBar onSearch={handleSearch}/>}
             {searchMode === "filter" && (
                 <SearchFilter

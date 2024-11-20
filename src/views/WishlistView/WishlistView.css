@@ -43,7 +43,7 @@
 .wishlist-card {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     opacity: 1;
 }
@@ -64,6 +64,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     opacity: 0;
+    background: rgba(0, 0, 0, 0.5); /* Subtle overlay for focus */
     transition: opacity 0.3s ease;
 }
 
@@ -78,9 +79,9 @@
     border: none;
     width: 55px;
     height: 55px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    border-radius: 25%;
+    border-radius: 50%; /* Circular button */
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -96,7 +97,8 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .wishlist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 모바일 3열 */
+        gap: 1rem;
     }
 
     .wishlist-header h1 {
@@ -110,10 +112,10 @@
     }
 }
 
-/* Responsive Design for Mobile */
 @media (max-width: 480px) {
-    .wishlist-view {
-        padding: 0.1rem;
+    .wishlist-grid {
+        grid-template-columns: repeat(3, 1fr); /* 작은 화면에서도 3열 유지 */
+        gap: 0.8rem;
     }
 
     .wishlist-header h1 {
@@ -124,11 +126,9 @@
         font-size: 1rem;
     }
 
-    .wishlist-grid {
-        gap: 1rem;
-    }
-
-    .wishlist-card:hover {
-        transform: translateY(-2px); /* Subtle hover effect for mobile */
+    .remove-btn {
+        font-size: 1rem;
+        width: 35px;
+        height: 35px;
     }
 }

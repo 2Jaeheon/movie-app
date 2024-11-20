@@ -13,6 +13,7 @@ import {
 import {usePreference} from "../../hooks/usePreference";
 import MovieList from "../../components/MovieList/MovieList";
 import MovieModal from "../../components/MovieModal/MovieModal";
+import ErrorComponent from "../../components/Error/ErrorComponent"; // ErrorComponent 추가
 import {Movie} from "../../models/Movie";
 import "./HomeView.css";
 
@@ -97,21 +98,13 @@ const HomeView: React.FC = () => {
         }
     };
 
+    // 에러 발생 시 ErrorComponent 렌더링
     if (error) {
         return (
-            <div className="error-view">
-                <h1 className="error-title">에러 발생!</h1>
-                <p className="error-message">{error}</p>
-                <p className="error-description">
-                    현재 영화 데이터를 불러올 수 없습니다. API 키를 확인하거나 나중에 다시 시도해주세요.
-                </p>
-                <button
-                    className="retry-button"
-                    onClick={() => window.location.reload()}
-                >
-                    다시 시도하기
-                </button>
-            </div>
+            <ErrorComponent
+                errorMessage={error}
+                onRetry={() => window.location.reload()}
+            />
         );
     }
 
