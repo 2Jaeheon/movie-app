@@ -39,12 +39,17 @@ const PopularView: React.FC = () => {
                 setLoading(true);
                 const newMovies = await fetchPopularMoviesInfinite(nextPage);
 
-                const filteredMovies = newMovies.filter((movie) => !loadedMovieIds.has(movie.id));
-                setMovies((prev) => [...prev, ...filteredMovies]);
+                // 중복 제거 로직
+                setMovies((prevMovies) => {
+                    const uniqueMovies = newMovies.filter(
+                        (movie) => !prevMovies.some((prevMovie) => prevMovie.id === movie.id)
+                    );
+                    return [...prevMovies, ...uniqueMovies];
+                });
 
                 setLoadedMovieIds((prev) => {
                     const updatedSet = new Set(prev);
-                    filteredMovies.forEach((movie) => updatedSet.add(movie.id));
+                    newMovies.forEach((movie) => updatedSet.add(movie.id));
                     return updatedSet;
                 });
 
