@@ -29,9 +29,12 @@ const AppRoutes: React.FC = () => {
             <Routes>
                 <Route path="/movie-app/" element={isLoggedIn ? <HomeView/> : <Navigate to="/movie-app/signin"/>}/>
                 <Route path="/movie-app/signin" element={<AuthView/>}/>
-                <Route path="/movie-app/popular" element={isLoggedIn ? <PopularView/> : <Navigate to="/signin"/>}/>
-                <Route path="/movie-app/search" element={isLoggedIn ? <SearchView/> : <Navigate to="/signin"/>}/>
-                <Route path="/movie-app/wishlist" element={isLoggedIn ? <WishlistView/> : <Navigate to="/signin"/>}/>
+                <Route path="/movie-app/popular"
+                       element={isLoggedIn ? <PopularView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/search"
+                       element={isLoggedIn ? <SearchView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/wishlist"
+                       element={isLoggedIn ? <WishlistView/> : <Navigate to="/movie-app/signin"/>}/>
             </Routes>
         </Router>
     );
