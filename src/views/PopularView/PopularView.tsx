@@ -26,9 +26,9 @@ const PopularView: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [, setLoadedMovieIds] = useState<Set<number>>(new Set()); // 중복 방지
     const [error, setError] = useState<string | null>(null); // 에러 상태 추가
+    const [showScrollToTop, setShowScrollToTop] = useState(false);  // 상태 추가: Scroll to Top 버튼
 
     const {wishlist, addToWishlist, removeFromWishlist} = usePreference();
-
     const {currentPage, totalPages, setTotalPages, goToNextPage, goToPrevPage, setPage} =
         usePagination();
 
@@ -146,6 +146,28 @@ const PopularView: React.FC = () => {
         fetchInitialData();
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 300) {
+                setShowScrollToTop(true);
+            } else {
+                setShowScrollToTop(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     if (error) {
         return (
             <ErrorComponent
@@ -211,6 +233,13 @@ const PopularView: React.FC = () => {
                 onWishlistToggle={handleWishlistToggle}
                 isInWishlist={selectedMovie ? isInWishlist(selectedMovie) : false}
             />
+
+            {/* Scroll to Top Button */}
+            {showScrollToTop && (
+                <button className="scroll-to-top" onClick={scrollToTop}>
+                    ▲
+                </button>
+            )}
         </div>
     );
 };
