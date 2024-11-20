@@ -1,0 +1,151 @@
+/* 검색 페이지 전체 스타일 */
+.search-view {
+    padding: 1rem;
+    background-color: #121212;
+    color: #fff;
+}
+
+/* 검색 모드 선택 */
+.search-mode-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #121212;
+    color: #fff;
+    text-align: center;
+}
+
+.search-mode-buttons {
+    display: flex;
+    flex-direction: column; /* 버튼들을 세로로 배치 */
+    gap: 0.8rem; /* 버튼 간격 축소 */
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 300px; /* 버튼의 최대 너비 제한 */
+}
+
+.mode-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(90deg, #7e57c2, #ab47bc);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.mode-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(171, 71, 188, 0.6);
+}
+
+/* 검색 제목 */
+.search-title {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* 영화 목록 그리드 */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 최소 150px 크기 */
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* 태블릿에서는 더 작은 카드 */
+        gap: 0.8rem;
+    }
+
+    .search-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr); /* 모바일에서 정확히 3열 */
+        gap: 0.5rem; /* 카드 간격 축소 */
+    }
+
+    .search-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+    }
+}
+
+/* 영화 카드 아이템 */
+.movie-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px; /* 모바일에서 더 작은 곡률 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 모바일에서 더 가벼운 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 영화 제목 */
+.movie-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 영화 별점 */
+.movie-rating {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    color: #66bb6a;
+}
+
+/* 스크롤 탑 버튼 */
+.scroll-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, #7e57c2, #66bb6a);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    z-index: 1000;
+}
+
+.scroll-to-top:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-to-top:active {
+    transform: scale(0.9);
+}
+
+.scroll-to-top-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}

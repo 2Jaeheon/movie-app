@@ -1,0 +1,124 @@
+.popular-view {
+    padding: 2rem;
+    color: white;
+    background-color: #121212;
+    min-height: 100vh;
+}
+
+.popular-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+    }
+}
+
+.loading-text {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #9f7aea;
+    animation: pulse 1.5s infinite;
+}
+
+.loader {
+    display: block;
+    margin: 2rem auto;
+    border: 4px solid #9f7aea;
+    border-top: 4px solid #48bb78;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+/* 모드 선택 영역 */
+.mode-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 화면 전체 높이 */
+    background-color: #121212; /* 배경색 */
+    color: #ffffff;
+    text-align: center;
+    gap: 1.5rem; /* 요소 간 간격 */
+    padding: 1rem;
+}
+
+/* 제목 스타일 */
+.mode-selection h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 버튼 컨테이너 */
+.mode-buttons {
+    display: flex;
+    flex-wrap: wrap; /* 버튼이 여러 줄로 나뉠 수 있도록 */
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* 버튼 스타일 */
+.mode-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background: linear-gradient(90deg, #7e57c2, #ab47bc);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mode-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(171, 71, 188, 0.6);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .mode-selection h2 {
+        font-size: 1.8rem; /* 제목 크기 줄임 */
+    }
+
+    .mode-button {
+        font-size: 0.9rem; /* 버튼 글자 크기 줄임 */
+        padding: 0.6rem 1.5rem; /* 버튼 크기 조정 */
+    }
+}
+
+@media (max-width: 480px) {
+    .mode-selection h2 {
+        font-size: 1.6rem; /* 작은 화면에서 제목 크기 더 줄임 */
+    }
+
+    .mode-button {
+        font-size: 0.8rem;
+        padding: 0.5rem 1.2rem;
+    }
+}

@@ -1,0 +1,121 @@
+.movie-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    color: #121212;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 동영상 래퍼 */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 비율 */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 영화 정보 섹션 */
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.movie-details p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.movie-details strong {
+    font-weight: bold;
+    color: #121212;
+}
+
+/* 모달 액션 버튼들 */
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.modal-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-button:hover {
+    transform: scale(1.05);
+}
+
+/* 추가/제거 버튼 스타일 */
+.modal-button.add-button {
+    background: linear-gradient(135deg, #43a047, #66bb6a);
+    color: white;
+}
+
+.modal-button.add-button:hover {
+    background: linear-gradient(135deg, #388e3c, #43a047);
+    box-shadow: 0 4px 12px rgba(67, 160, 71, 0.5);
+}
+
+.modal-button.remove-button {
+    background: linear-gradient(135deg, #e53935, #ef5350);
+    color: white;
+}
+
+.modal-button.remove-button:hover {
+    background: linear-gradient(135deg, #d32f2f, #c62828);
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.5);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .movie-modal-content {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .movie-details p {
+        font-size: 0.9rem;
+    }
+
+    .modal-button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-modal-content {
+        padding: 0.1rem;
+        gap: 0.8rem;
+    }
+
+    .movie-details p {
+        font-size: 0.6rem;
+    }
+
+    .modal-button {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+}
