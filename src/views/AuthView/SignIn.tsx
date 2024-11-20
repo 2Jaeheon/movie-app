@@ -139,7 +139,7 @@ const SignIn: React.FC = () => {
             {/* Terms Modal */}
             {isModalVisible && (
                 <div className="terms-modal">
-                    <div className="modal-content">
+                    <div className="modal-service">
                         <h2>Terms and Conditions</h2>
                         <p>
                             {/* Place your actual terms and conditions text here */}

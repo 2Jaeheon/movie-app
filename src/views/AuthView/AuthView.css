@@ -123,8 +123,9 @@
     color: black;
 }
 
-.modal-content {
+.modal-service {
     padding: 20px;
+    background: white;
     border-radius: 5px;
     max-width: 600px;
     width: 90%;

@@ -15,6 +15,7 @@ import ErrorComponent from "../../components/Error/ErrorComponent"; // ErrorComp
 import {Movie} from "../../models/Movie";
 import "./PopularView.css";
 
+
 const PopularView: React.FC = () => {
     const [isPagination, setIsPagination] = useState<boolean | null>(null); // 모드 선택 상태
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -26,7 +27,7 @@ const PopularView: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [, setLoadedMovieIds] = useState<Set<number>>(new Set()); // 중복 방지
     const [error, setError] = useState<string | null>(null); // 에러 상태 추가
-    const [showScrollToTop, setShowScrollToTop] = useState(false);  // 상태 추가: Scroll to Top 버튼
+    const [showScrollToTop, setShowScrollToTop] = useState(false); // 상태 추가: Scroll to Top 버튼
 
     const {wishlist, addToWishlist, removeFromWishlist} = usePreference();
     const {currentPage, totalPages, setTotalPages, goToNextPage, goToPrevPage, setPage} =
@@ -62,7 +63,9 @@ const PopularView: React.FC = () => {
         }
     });
 
-    const isInWishlist = (movie: Movie) => wishlist.some((m) => m.id === movie.id);
+    const isInWishlist = (movie: Movie) => {
+        return wishlist.some((m) => m.id === movie.id);
+    };
 
     const handleWishlistToggle = () => {
         if (selectedMovie) {
@@ -71,6 +74,18 @@ const PopularView: React.FC = () => {
                 : addToWishlist(selectedMovie);
         }
     };
+
+    // 페이지네이션 모드일 때 스크롤 비활성화
+    useEffect(() => {
+        if (isPagination) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+        return () => {
+            document.body.style.overflow = "auto"; // 컴포넌트 언마운트 시 복원
+        };
+    }, [isPagination]);
 
     const loadMoviesPaginated = async (page: number) => {
         try {
