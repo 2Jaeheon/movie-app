@@ -109,12 +109,54 @@
     text-decoration: underline;
 }
 
+
+.terms-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 90%;
+    color: black;
+}
+
+.close-modal-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.close-modal-button:hover {
+    background-color: #0056b3;
+}
+
+.link {
+    color: #476b4b;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 /* 모바일 최적화 */
 @media (max-width: 768px) {
     .auth-card-container {
         width: 100%;
         max-width: 340px; /* 카드 너비 줄이기 */
-        height: 580px; /* 카드 높이 줄이기 */
+        height: 590px; /* 카드 높이 줄이기 */
     }
 
     .auth-card {
@@ -140,5 +182,10 @@
 
     .error-message {
         font-size: 0.8rem; /* 에러 메시지 크기 줄이기 */
+    }
+
+    .link {
+        margin-left: 3px; /* 링크 간격 줄이기 */
+        font-size: 14px;
     }
 }
