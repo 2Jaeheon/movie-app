@@ -20,7 +20,6 @@ const MovieList: React.FC<MovieListProps> = ({title, movies, onMovieClick}) => {
                         onClick={() => onMovieClick(movie)}
                         className="movie-item-wrapper"
                     >
-                        {/* MovieCard에 동적 width와 height 추가 */}
                         <MovieCard movie={movie} width="100%" height="auto"/>
                     </div>
                 ))}
