@@ -17,7 +17,7 @@ const AppRoutes: React.FC = () => {
 
     const ConditionalHeader: React.FC = () => {
         const location = useLocation();
-        const hideHeaderPaths = ["/signin"]; // 헤더를 숨길 경로
+        const hideHeaderPaths = ["/movie-app/signin"]; // 헤더를 숨길 경로
         const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
         return shouldHideHeader ? null : <Header isLoggedIn={isLoggedIn} onLogout={handleLogout}/>;
@@ -27,11 +27,15 @@ const AppRoutes: React.FC = () => {
         <Router>
             <ConditionalHeader/>
             <Routes>
-                <Route path="/" element={isLoggedIn ? <HomeView/> : <Navigate to="/signin"/>}/>
-                <Route path="/signin" element={<AuthView/>}/>
-                <Route path="/popular" element={isLoggedIn ? <PopularView/> : <Navigate to="/signin"/>}/>
-                <Route path="/search" element={isLoggedIn ? <SearchView/> : <Navigate to="/signin"/>}/>
-                <Route path="/wishlist" element={isLoggedIn ? <WishlistView/> : <Navigate to="/signin"/>}/>
+                <Route path="/" element={isLoggedIn ? <HomeView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/" element={isLoggedIn ? <HomeView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/signin" element={<AuthView/>}/>
+                <Route path="/movie-app/popular"
+                       element={isLoggedIn ? <PopularView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/search"
+                       element={isLoggedIn ? <SearchView/> : <Navigate to="/movie-app/signin"/>}/>
+                <Route path="/movie-app/wishlist"
+                       element={isLoggedIn ? <WishlistView/> : <Navigate to="/movie-app/signin"/>}/>
             </Routes>
         </Router>
     );

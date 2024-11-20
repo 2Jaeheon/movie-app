@@ -10,7 +10,7 @@ export const useAuth = (onSignUpSuccess?: () => void) => {
     const signIn = async (): Promise<void> => {
         const {success, error} = await AuthController.signIn(email, password);
         if (success) {
-            window.location.href = "/"; // 로그인 성공 시 메인 화면으로 이동
+            window.location.href = "/movie-app/"; // 로그인 성공 시 메인 화면으로 이동
         } else {
             setError(error || "Unknown error occurred.");
         }
