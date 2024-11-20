@@ -17,7 +17,7 @@ const AppRoutes: React.FC = () => {
 
     const ConditionalHeader: React.FC = () => {
         const location = useLocation();
-        const hideHeaderPaths = ["/signin"]; // 헤더를 숨길 경로
+        const hideHeaderPaths = ["/movie-app/signin"]; // 헤더를 숨길 경로
         const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
         return shouldHideHeader ? null : <Header isLoggedIn={isLoggedIn} onLogout={handleLogout}/>;
@@ -27,6 +27,7 @@ const AppRoutes: React.FC = () => {
         <Router>
             <ConditionalHeader/>
             <Routes>
+                <Route path="/" element={isLoggedIn ? <HomeView/> : <Navigate to="/movie-app/signin"/>}/>
                 <Route path="/movie-app/" element={isLoggedIn ? <HomeView/> : <Navigate to="/movie-app/signin"/>}/>
                 <Route path="/movie-app/signin" element={<AuthView/>}/>
                 <Route path="/movie-app/popular"

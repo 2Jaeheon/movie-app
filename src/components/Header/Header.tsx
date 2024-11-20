@@ -23,8 +23,8 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
         <>
             <li>
                 <Link
-                    to="/signin"
-                    className={location.pathname === "/signin" ? "active" : ""}
+                    to="/movie-app/signin"
+                    className={location.pathname === "/mov/signin" ? "active" : ""}
                     onClick={closeMenu} // 메뉴 닫기
                 >
                     Sign In
@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
         <>
             <li>
                 <Link
-                    to="/"
+                    to="/movie-app/"
                     className={location.pathname === "/" ? "active" : ""}
                     onClick={closeMenu} // 메뉴 닫기
                 >
@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             </li>
             <li>
                 <Link
-                    to="/popular"
+                    to="/movie-app/popular"
                     className={location.pathname === "/popular" ? "active" : ""}
                     onClick={closeMenu} // 메뉴 닫기
                 >
@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             </li>
             <li>
                 <Link
-                    to="/search"
+                    to="/movie-app/search"
                     className={location.pathname === "/search" ? "active" : ""}
                     onClick={closeMenu} // 메뉴 닫기
                 >
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             </li>
             <li>
                 <Link
-                    to="/wishlist"
+                    to="/movie-app/wishlist"
                     className={location.pathname === "/wishlist" ? "active" : ""}
                     onClick={closeMenu} // 메뉴 닫기
                 >
@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
     return (
         <header className="header">
             <div className="logo">
-                <Link to="/" onClick={closeMenu}>
+                <Link to="/movie-app/" onClick={closeMenu}>
                     🎬 Short Movies
                 </Link>
             </div>
