@@ -89,7 +89,6 @@
     box-shadow: 0 8px 20px rgba(97, 97, 97, 0.5);
 }
 
-/* Fade-in 애니메이션 */
 @keyframes fadeIn {
     from {
         opacity: 0;

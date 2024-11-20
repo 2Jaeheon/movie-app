@@ -4,8 +4,8 @@ import "./MovieCard.css";
 
 interface MovieCardProps {
     movie: Movie;
-    width?: string; // 카드의 가로 크기를 조정할 수 있는 prop 추가
-    height?: string; // 카드의 세로 크기를 조정할 수 있는 prop 추가
+    width?: string;
+    height?: string;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({movie, width = "100%", height = "auto"}) => {

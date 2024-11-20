@@ -1,21 +1,21 @@
 .page-enter {
     opacity: 0;
-    transform: scale(0.9) rotateY(10deg) translateX(20px); /* 오른쪽에서 축소 및 회전 */
+    transform: translateX(100%);
 }
 
 .page-enter-active {
     opacity: 1;
-    transform: scale(1) rotateY(0) translateX(0); /* 원래 크기로 부드럽게 */
-    transition: opacity 700ms ease, transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateX(0);
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
 
 .page-exit {
     opacity: 1;
-    transform: scale(1) rotateY(0) translateX(0); /* 화면에 고정된 상태 */
+    transform: translateX(0);
 }
 
 .page-exit-active {
     opacity: 0;
-    transform: scale(0.9) rotateY(-10deg) translateX(-20px); /* 축소 및 왼쪽 이동과 반대 방향 회전 */
-    transition: opacity 700ms ease, transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateX(-100%);
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }

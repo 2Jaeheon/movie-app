@@ -2,8 +2,6 @@ import tmdbAPI from "../services/api/tmdbAPI";
 import Endpoints from "../services/api/EndPoints";
 import {Movie} from "../models/Movie";
 
-
-// 곧 출시될 영화
 export const fetchUpcomingMovies = async (): Promise<Movie[]> => {
     try {
         const response = await tmdbAPI.get(Endpoints.upcomingMovies, {
