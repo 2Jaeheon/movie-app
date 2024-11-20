@@ -24,7 +24,7 @@ const PopularView: React.FC = () => {
     const [movieDetails, setMovieDetails] = useState<any | null>(null);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [loadedMovieIds, setLoadedMovieIds] = useState<Set<number>>(new Set()); // 중복 방지
+    const [, setLoadedMovieIds] = useState<Set<number>>(new Set()); // 중복 방지
     const [error, setError] = useState<string | null>(null); // 에러 상태 추가
 
     const {wishlist, addToWishlist, removeFromWishlist} = usePreference();
