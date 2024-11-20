@@ -7,7 +7,7 @@ export const authService = {
 
         if (user) {
             localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("currentUserEmail", email); // 현재 사용자 저장
+            localStorage.setItem("currentUserEmail", email);
             return true;
         }
         return false;
@@ -18,7 +18,7 @@ export const authService = {
         const existingUser = users.find((u: { email: string }) => u.email === email);
 
         if (existingUser) {
-            return false; // 이메일 중복
+            return false;
         }
 
         const updatedUsers = [...users, {email, password}];

@@ -5,7 +5,6 @@ export const useInfiniteScroll = (fetchMore: () => Promise<void>) => {
 
     useEffect(() => {
         const handleScroll = () => {
-            // 스크롤이 하단에 도달했는지 확인
             if (
                 window.innerHeight + document.documentElement.scrollTop >=
                 document.documentElement.offsetHeight - 500 &&

@@ -11,7 +11,7 @@ export const usePreference = () => {
     }, []);
 
     const addToWishlist = (movie: Movie) => {
-        if (!wishlist.some((m) => m.id === movie.id)) { // 중복 확인
+        if (!wishlist.some((m) => m.id === movie.id)) {
             addMovieToWishlist(movie);
             setWishlist(fetchWishlist());
         }

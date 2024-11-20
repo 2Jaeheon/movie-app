@@ -1,93 +1,151 @@
-# Getting Started with Create React App
+# 프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 넷플릭스와 유사한 애플리케이션을 React를 사용하여 만드는 것이 목적입니다.
 
-## Available Scripts
+빠른 속도와 편리한 사용성을 제공하는 것을 목표로 하고 있습니다.\
+영화 포스터를 클릭하면 세부 정보 및 유튜브 트레일러을 볼 수 있습니다.\
+또한 필터 검색과 검색창에 검색하는 별도의 기능을 제공합니다.
 
-In the project directory, you can run:
+마음에 드는 영화 데이터는 Wishlist에 추가하여 관리할 수 있습니다.\
+Wishlist에 추가한 영화는 사용자가 원하는 시기에 다시 볼 수 있도록 관리할 수 있습니다.
 
-### `npm start`
+# 사용 기술 및 라이브러리
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React: 사용자 인터페이스를 구축하기 위한 JavaScript 라이브러리. 컴포넌트 기반 아키텍처와 상태 관리를 통해 유연하고 재사용 가능한 UI를 작성.
+- TypeScript: JavaScript의 정적 타입 지원을 추가하여 코드의 안정성과 가독성을 향상.
+- React Router: 라우팅 기능을 제공하여 SPA(Single Page Application)의 페이지 전환을 구현.
+- Axios: HTTP 클라이언트로, TMDB API와의 통신을 효율적으로 처리.
+- React Scripts: React 애플리케이션의 빌드 및 개발 환경 설정을 간소화.
+- ESLint: 코드 품질을 유지하고 일관성을 확보하기 위한 린터.
+- Cross-Env: 환경 변수를 OS 간에 호환되도록 설정.
+- Prettier: 코드 포맷터로, 코드의 일관성을 유지하고 가독성을 향상.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# API
 
-### `npm test`
+TMDB API를 사용하여 영화 데이터를 가져왔습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more
-information.
+[TMDB API](https://www.themoviedb.org/documentation/api)를 회원가입 시 비밀번호로 입력하면 영화 데이터 조회가 가능합니다.\
+또한 TMDB API를 사용하기 위해서는 API Key가 필요합니다.\
+API Key는 TMDB 사이트에서 발급받을 수 있습니다.
+
+# 실행 방법
+
+프로젝트를 실행하기 위해서는 먼저 아래의 명령어를 실행해야합니다.
+
+### `npm install`
+
+프로젝트 실행에 필요한 모듈을 설치합니다.<br>
+node_modules 폴더가 생성되며, 이 폴더에는 프로젝트 실행에 필요한 모듈이 설치됩니다.
+
+### `npm run start`
+
+개발 모드로 프로젝트를 실행합니다.<br>
+[http://localhost:3000](http://localhost:3000)로 접속하여 프로젝트를 확인할 수 있습니다.
+
+추가적으로 아래의 명령어를 사용하여 프로젝트를 빌드할 수 있습니다.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+프로덕션용으로 앱을 `build` 폴더에 빌드합니다.\
+프로덕션 모드에서 React를 올바르게 번들링하고 최상의 성능을 위해 빌드를 최적화합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+빌드는 최소화되고 파일 이름에는 해시가 포함됩니다.\
+이렇게 하면 앱이 배포될 준비가 끝났습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+자세한 내용은 [배포](https://facebook.github.io/create-react-app/docs/deployment) 섹션을 참조하세요.
 
-### `npm run eject`
+# 코드 구조
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will
-remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right
-into your project so you have full control over them. All of the commands except `eject` will still work, but they will
-point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you
-shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in
-the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-- [ ] 컨벤션
-- [ ] 커밋메시지 룰
-- [ ] pr template 설명
-- [ ] git flow 전략 설명
-- [ ] 브랜치 네이밍 규칙
-- [ ] 이슈 등록 방법
+```
+src
+├── App
+│   ├── App.css
+│   ├── App.tsx
+│   ├── AppRoutes.css
+│   └── AppRoutes.tsx
+├── assets
+│   ├── icons
+│   └── images
+│       └── placeholder.jpg
+├── components
+│   ├── Error
+│   │   ├── ErrorComponent.css
+│   │   └── ErrorComponent.tsx
+│   ├── Header
+│   │   ├── Header.css
+│   │   └── Header.tsx
+│   ├── MovieCard
+│   │   ├── MovieCard.css
+│   │   └── MovieCard.tsx
+│   ├── MovieList
+│   │   ├── MovieList.css
+│   │   └── MovieList.tsx
+│   ├── MovieModal
+│   │   ├── MovieModal.css
+│   │   └── MovieModal.tsx
+│   ├── Pagination
+│   │   ├── Pagination.css
+│   │   └── Pagination.tsx
+│   ├── Search
+│   │   ├── SearchBar.css
+│   │   ├── SearchBar.tsx
+│   │   ├── SearchFilter.css
+│   │   └── SearchFilter.tsx
+│   └── common
+│       ├── Button.css
+│       ├── Button.tsx
+│       ├── InputField.css
+│       ├── InputField.tsx
+│       ├── Loader.css
+│       ├── Loader.tsx
+│       ├── Modal.css
+│       ├── Modal.tsx
+│       ├── Toast.css
+│       └── Toast.tsx
+├── controllers
+│   ├── AuthController.ts
+│   ├── MovieController.ts
+│   └── userPreferenceController.ts
+├── hooks
+│   ├── useAuth.ts
+│   ├── useInfiniteScroll.ts
+│   ├── usePagination.ts
+│   └── usePreference.ts
+├── index.css
+├── index.tsx
+├── logo.svg
+├── models
+│   └── Movie.ts
+├── react-app-env.d.ts
+├── reportWebVitals.ts
+├── services
+│   ├── api
+│   │   ├── EndPoints.ts
+│   │   └── tmdbAPI.ts
+│   ├── authService.ts
+│   └── userPreferenceService.ts
+├── setupTests.ts
+├── styles
+│   └── global.css
+├── util
+│   └── validators.ts
+└── views
+    ├── AuthView
+    │   ├── AuthView.css
+    │   └── SignIn.tsx
+    ├── HomeView
+    │   ├── HomeView.css
+    │   └── HomeView.tsx
+    ├── PopularView
+    │   ├── PopularView.css
+    │   └── PopularView.tsx
+    ├── SearchView
+    │   ├── SearchView.css
+    │   └── SearchView.tsx
+    └── WishlistView
+        ├── WishlistView.css
+        └── WishlistView.tsx
+```
 
 # Code Convention
 
@@ -96,8 +154,6 @@ Prettier를 사용하여 코드 컨벤션을 지키도록 하였습니다.
 - [Prettier](https://prettier.io/)
 - [Prettier Config](https://prettier.io/docs/en/configuration.html)
 - [Prettier Config Options](https://prettier.io/docs/en/options.html)
-
-
 
 # Commit Message Rules
 

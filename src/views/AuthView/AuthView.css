@@ -6,6 +6,7 @@
     height: 100vh;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     font-family: Arial, sans-serif;
+    padding: 1rem; /* 모바일 여백 추가 */
 }
 
 /* 카드 컨테이너 */
@@ -106,4 +107,38 @@
     color: #6a11cb;
     cursor: pointer;
     text-decoration: underline;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    .auth-card-container {
+        width: 100%;
+        max-width: 340px; /* 카드 너비 줄이기 */
+        height: 580px; /* 카드 높이 줄이기 */
+    }
+
+    .auth-card {
+        padding: 2rem; /* 내부 여백 줄이기 */
+    }
+
+    .auth-title {
+        font-size: 1.5rem; /* 제목 크기 줄이기 */
+    }
+
+    .auth-subtitle {
+        font-size: 0.8rem; /* 부제목 크기 줄이기 */
+    }
+
+    .auth-button {
+        font-size: 1rem; /* 버튼 텍스트 크기 줄이기 */
+        padding: 0.8rem; /* 버튼 패딩 줄이기 */
+    }
+
+    .input-wrapper {
+        margin-bottom: 0.6rem; /* 필드 간격 줄이기 */
+    }
+
+    .error-message {
+        font-size: 0.8rem; /* 에러 메시지 크기 줄이기 */
+    }
 }
