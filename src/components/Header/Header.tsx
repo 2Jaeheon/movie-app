@@ -1,15 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link, useLocation} from "react-router-dom";
 import "./Header.css";
 
 interface HeaderProps {
-    isLoggedIn: boolean; // 로그인 여부
-    onLogout: () => void; // 로그아웃 이벤트 핸들러
+    isLoggedIn: boolean;
+    onLogout: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
     const location = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isScrollingUp, setIsScrollingUp] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(window.scrollY);
 
     const toggleMenu = () => {
         setMenuOpen((prev) => !prev);
@@ -19,13 +21,32 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
         setMenuOpen(false);
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 50) {
+                setIsScrollingUp(false); // Scrolling down, hide header
+            } else {
+                setIsScrollingUp(true); // Scrolling up, show header
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
     const guestMenu = (
         <>
             <li>
                 <Link
                     to="/movie-app/signin"
-                    className={location.pathname === "/mov/signin" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 닫기
+                    className={location.pathname === "/movie-app/signin" ? "active" : ""}
+                    onClick={closeMenu}
                 >
                     Sign In
                 </Link>
@@ -38,8 +59,8 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             <li>
                 <Link
                     to="/movie-app/"
-                    className={location.pathname === "/" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 닫기
+                    className={location.pathname === "/movie-app/" ? "active" : ""}
+                    onClick={closeMenu}
                 >
                     Home
                 </Link>
@@ -47,8 +68,8 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             <li>
                 <Link
                     to="/movie-app/popular"
-                    className={location.pathname === "/popular" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 닫기
+                    className={location.pathname === "/movie-app/popular" ? "active" : ""}
+                    onClick={closeMenu}
                 >
                     Popular
                 </Link>
@@ -56,8 +77,8 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             <li>
                 <Link
                     to="/movie-app/search"
-                    className={location.pathname === "/search" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 닫기
+                    className={location.pathname === "/movie-app/search" ? "active" : ""}
+                    onClick={closeMenu}
                 >
                     Search
                 </Link>
@@ -65,8 +86,8 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
             <li>
                 <Link
                     to="/movie-app/wishlist"
-                    className={location.pathname === "/wishlist" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 닫기
+                    className={location.pathname === "/movie-app/wishlist" ? "active" : ""}
+                    onClick={closeMenu}
                 >
                     Wishlist
                 </Link>
@@ -76,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
                     className="logout-button"
                     onClick={() => {
                         onLogout();
-                        closeMenu(); // 로그아웃 후 메뉴 닫기
+                        closeMenu();
                     }}
                 >
                     Logout
@@ -86,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
     );
 
     return (
-        <header className="header">
+        <header className={`header ${isScrollingUp ? "visible" : "hidden"}`}>
             <div className="logo">
                 <Link to="/movie-app/" onClick={closeMenu}>
                     🎬 Short Movies

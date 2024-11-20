@@ -2,7 +2,8 @@
 .home-view {
     background-color: #121212;
     color: white;
-    padding: 1.3rem;
+    padding: 2rem;
+    padding-top: 90px;
 }
 
 /* 배너 스타일 */
