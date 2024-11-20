@@ -1,6 +1,7 @@
 /* 검색 페이지 전체 스타일 */
 .search-view {
     padding: 1rem;
+    padding-top: 90px;
     background-color: #121212;
     color: #fff;
 }

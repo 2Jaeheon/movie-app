@@ -188,7 +188,7 @@ export const fetchPopularMoviesPaginated = async (page: number): Promise<Movie[]
                 page,
             },
         });
-        return response.data.results; // 해당 페이지의 영화 데이터 반환
+        return response.data.results.slice(0, 16); // 해당 페이지의 영화 데이터 반환
     } catch (error) {
         console.error(`Failed to fetch movies for page ${page}:`, error);
         return [];

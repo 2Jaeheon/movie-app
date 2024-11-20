@@ -9,6 +9,8 @@ const SignIn: React.FC = () => {
     const [toastMessage, setToastMessage] = useState<string>(""); // Toast 메시지
     const [toastVisible, setToastVisible] = useState<boolean>(false); // Toast 표시 여부
     const [toastType, setToastType] = useState<"success" | "error">("success"); // Toast 타입
+    const [isAgree, setIsAgree] = useState(false); // 약관 동의 여부
+    const [isModalVisible, setIsModalVisible] = useState(false); // Modal 표시 여부
 
     const {
         email,
@@ -29,6 +31,10 @@ const SignIn: React.FC = () => {
 
     const handleToastClose = () => {
         setToastVisible(false);
+    };
+
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
     };
 
     return (
@@ -100,7 +106,25 @@ const SignIn: React.FC = () => {
                         />
                     </div>
                     {error && <p className="error-message">{error}</p>}
-                    <button className="auth-button" onClick={signUp}>
+                    <div className="terms-checkbox">
+                        <input
+                            type="checkbox"
+                            id="termsAgree"
+                            checked={isAgree}
+                            onChange={() => setIsAgree(!isAgree)}
+                        />
+                        <label htmlFor="termsAgree">
+                            <span className="link" onClick={toggleModal}>
+                                I agree to the Terms and Conditions
+                            </span>
+                        </label>
+                    </div>
+
+                    <button
+                        className="auth-button"
+                        onClick={signUp}
+                        disabled={!isAgree} // 버튼을 약관에 동의하지 않으면 비활성화
+                    >
                         Sign Up
                     </button>
                     <p className="auth-link">
@@ -111,6 +135,38 @@ const SignIn: React.FC = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Terms Modal */}
+            {isModalVisible && (
+                <div className="terms-modal">
+                    <div className="modal-service">
+                        <h2>Terms and Conditions</h2>
+                        <p>
+                            {/* Place your actual terms and conditions text here */}
+                            1. 서비스 이용 약관 동의
+                            본 서비스 이용약관(이하 "약관")에 동의함에 있어 다음 사항을 확인하고 동의합니다.<br/><br/>
+
+                            1.1 개인정보 수집 및 이용 동의
+
+                            서비스 제공을 위해 필요한 최소한의 개인정보를 수집합니다.수집된 개인정보는 서비스 목적 외 다른 용도로 사용하지 않습니다.<br/><br/>
+
+                            1.2 서비스 이용 조건<br/>
+
+                            서비스 이용 시 관련 법규 및 약관을 준수해야 합니다.
+                            부적절한 이용 행위 발견 시 서비스 이용을 제한할 수 있습니다.<br/><br/>
+
+                            2. 개인정보 처리방침<br/>
+                            2.1 개인정보의 수집 및 이용 목적<br/><br/>
+                            2.2 수집하는 개인정보 항목<br/>
+
+                            필수 정보: 이메일 주소
+                        </p>
+                        <button onClick={toggleModal} className="close-modal-button">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* Toast 컴포넌트 */}
             <Toast
