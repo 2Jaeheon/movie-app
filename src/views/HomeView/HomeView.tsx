@@ -9,33 +9,36 @@ import {
     fetchRomanceMovies,
     fetchDramaMovies,
     fetchClassicMovies,
-} from "../../controllers/MovieController";
-import {usePreference} from "../../hooks/usePreference";
-import MovieList from "../../components/MovieList/MovieList";
-import MovieModal from "../../components/MovieModal/MovieModal";
-import ErrorComponent from "../../components/Error/ErrorComponent"; // ErrorComponent 추가
-import {Movie} from "../../models/Movie";
+} from "../../controllers/MovieController"; // 영화 데이터 관련 API 호출 함수들
+import {usePreference} from "../../hooks/usePreference"; // 찜 목록 관련 훅
+import MovieList from "../../components/MovieList/MovieList"; // 영화 목록 컴포넌트
+import MovieModal from "../../components/MovieModal/MovieModal"; // 영화 상세 모달 컴포넌트
+import ErrorComponent from "../../components/Error/ErrorComponent"; // 오류 발생 시 보여줄 컴포넌트
+import {Movie} from "../../models/Movie"; // Movie 모델
 import "./HomeView.css";
 
 const HomeView: React.FC = () => {
+    // 영화 데이터를 저장할 상태들
     const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([]);
     const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
     const [actionMovies, setActionMovies] = useState<Movie[]>([]);
     const [romanceMovies, setRomanceMovies] = useState<Movie[]>([]);
     const [dramaMovies, setDramaMovies] = useState<Movie[]>([]);
     const [classicMovies, setClassicMovies] = useState<Movie[]>([]);
-    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-    const [currentBannerMovie, setCurrentBannerMovie] = useState<Movie | null>(null);
-    const [movieDetails, setMovieDetails] = useState<any | null>(null);
-    const [videoUrl, setVideoUrl] = useState<string | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null); // 선택된 영화
+    const [currentBannerMovie, setCurrentBannerMovie] = useState<Movie | null>(null); // 배너에 표시할 영화
+    const [movieDetails, setMovieDetails] = useState<any | null>(null); // 영화 상세 정보
+    const [videoUrl, setVideoUrl] = useState<string | null>(null); // 영화 트레일러 URL
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열기/닫기 상태
+    const [error, setError] = useState<string | null>(null); // 에러 메시지 상태
 
-    const {wishlist, addToWishlist, removeFromWishlist} = usePreference();
+    const {wishlist, addToWishlist, removeFromWishlist} = usePreference(); // 찜 목록 관련 훅
 
+    // 컴포넌트 마운트 시 영화 데이터 가져오기
     useEffect(() => {
         const fetchMovies = async () => {
             try {
+                // 각종 영화 데이터 API 호출
                 const nowPlaying = await fetchNowPlayingMovies();
                 const trending = await fetchTrendingMovies();
                 const popular = await fetchPopularMovies();
@@ -44,6 +47,7 @@ const HomeView: React.FC = () => {
                 const drama = await fetchDramaMovies();
                 const classics = await fetchClassicMovies();
 
+                // 영화 데이터 상태 설정
                 setNowPlayingMovies(nowPlaying);
                 setPopularMovies(popular);
                 setActionMovies(action);
@@ -51,45 +55,62 @@ const HomeView: React.FC = () => {
                 setDramaMovies(drama);
                 setClassicMovies(classics);
 
+                // 트렌딩 영화 중 랜덤으로 배너 영화 선택
                 if (trending.length > 0) {
                     const randomIndex = Math.floor(Math.random() * trending.length);
                     setCurrentBannerMovie(trending[randomIndex]);
                 }
+
+                // 배너 영화 10초마다 변경
+                const bannerInterval = setInterval(() => {
+                    if (trending.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * trending.length);
+                        setCurrentBannerMovie(trending[randomIndex]);
+                    }
+                }, 10000); // 10초마다 변경
+
+                // 컴포넌트 언마운트 시 interval 해제
+                return () => clearInterval(bannerInterval);
+
             } catch (err) {
-                setError("API 호출 실패: TMDB API 키를 확인해주세요.");
+                setError("API 호출 실패: TMDB API 키를 확인해주세요."); // API 호출 실패 시 에러 메시지 설정
             }
         };
 
         fetchMovies();
     }, []);
 
+    // 영화 정보 더보기 버튼 클릭 시 처리
     const handleMoreInfo = async (movie: Movie) => {
-        setSelectedMovie(movie);
+        setSelectedMovie(movie); // 선택된 영화 설정
         try {
-            const details = await fetchMovieDetails(movie.id);
+            const details = await fetchMovieDetails(movie.id); // 영화 상세 정보 가져오기
             setMovieDetails(details);
 
-            const trailerUrl = await fetchMovieVideos(movie.id);
+            const trailerUrl = await fetchMovieVideos(movie.id); // 영화 트레일러 URL 가져오기
             setVideoUrl(trailerUrl);
-            setIsModalOpen(true);
+            setIsModalOpen(true); // 모달 열기
         } catch {
             alert("영화 정보를 가져오는데 실패했습니다. 다시 시도해주세요.");
         }
     };
 
+    // 모달 닫기
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setTimeout(() => {
             setSelectedMovie(null);
             setMovieDetails(null);
             setVideoUrl(null);
-        }, 300);
+        }, 300); // 모달 닫기 애니메이션 후 상태 초기화
     };
 
+    // 영화가 찜 목록에 있는지 확인
     const isInWishlist = (movie: Movie) => {
         return wishlist.some((m) => m.id === movie.id);
     };
 
+    // 찜 목록 토글 (추가/제거)
     const handleWishlistToggle = () => {
         if (selectedMovie) {
             isInWishlist(selectedMovie)
@@ -103,13 +124,14 @@ const HomeView: React.FC = () => {
         return (
             <ErrorComponent
                 errorMessage={error}
-                onRetry={() => window.location.reload()}
+                onRetry={() => window.location.reload()} // 에러 발생 시 새로 고침
             />
         );
     }
 
     return (
         <div className="home-view">
+            {/* 배너 영화 표시 */}
             {currentBannerMovie && (
                 <div
                     className="banner"
@@ -159,6 +181,7 @@ const HomeView: React.FC = () => {
                 </div>
             )}
             <div className="movie-lists fade-in">
+                {/* 다양한 영화 목록을 표시 */}
                 <MovieList title="Now Playing Movies" movies={nowPlayingMovies} onMovieClick={handleMoreInfo}/>
                 <MovieList title="Popular Movies" movies={popularMovies} onMovieClick={handleMoreInfo}/>
                 <MovieList title="Action Movies" movies={actionMovies} onMovieClick={handleMoreInfo}/>
@@ -167,7 +190,7 @@ const HomeView: React.FC = () => {
                 <MovieList title="Classic Movies" movies={classicMovies} onMovieClick={handleMoreInfo}/>
             </div>
 
-            {/* MovieModal 사용 */}
+            {/* MovieModal 컴포넌트 사용 (영화 상세보기 모달) */}
             <MovieModal
                 isOpen={isModalOpen}
                 movie={selectedMovie}

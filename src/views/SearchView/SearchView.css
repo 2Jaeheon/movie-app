@@ -1,23 +1,24 @@
 /* 검색 페이지 전체 스타일 */
 .search-view {
     padding: 1rem;
-    padding-top: 90px;
-    background-color: #121212;
-    color: #fff;
+    padding-top: 90px; /* 페이지 상단에 여백 추가 */
+    background-color: #121212; /* 배경 색상 설정 */
+    color: #fff; /* 텍스트 색상 설정 */
 }
 
 /* 검색 모드 선택 */
 .search-mode-selection {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 세로로 배치 */
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #121212;
-    color: #fff;
+    height: 100vh; /* 화면 전체 높이 사용 */
+    background-color: #121212; /* 배경 색상 */
+    color: #fff; /* 텍스트 색상 */
     text-align: center;
 }
 
+/* 검색 모드 버튼들 */
 .search-mode-buttons {
     display: flex;
     flex-direction: column; /* 버튼들을 세로로 배치 */
@@ -27,24 +28,26 @@
     max-width: 300px; /* 버튼의 최대 너비 제한 */
 }
 
+/* 검색 모드 버튼 스타일 */
 .mode-button {
     padding: 0.8rem;
     font-size: 1rem;
     color: #fff;
-    background: linear-gradient(90deg, #7e57c2, #ab47bc);
+    background: linear-gradient(90deg, #7e57c2, #ab47bc); /* 그라디언트 배경 */
     border: none;
     border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* 클릭 가능하게 설정 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 효과 */
     width: 100%;
 }
 
+/* 버튼 호버 시 효과 */
 .mode-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(171, 71, 188, 0.6);
+    transform: scale(1.05); /* 버튼 확대 */
+    box-shadow: 0 4px 15px rgba(171, 71, 188, 0.6); /* 그림자 효과 */
 }
 
-/* 검색 제목 */
+/* 검색 제목 스타일 */
 .search-title {
     font-size: 1.8rem;
     text-align: center;
@@ -54,99 +57,104 @@
 /* 영화 목록 그리드 */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 최소 150px 크기 */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 카드 크기 최소 150px */
     gap: 1rem;
     margin-top: 1rem;
 }
 
-/* 모바일 반응형 */
+/* 모바일 반응형 디자인 (태블릿 화면 크기) */
 @media (max-width: 768px) {
     .movie-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* 태블릿에서는 더 작은 카드 */
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* 더 작은 카드 크기 */
         gap: 0.8rem;
     }
 
     .search-title {
-        font-size: 1.6rem;
+        font-size: 1.6rem; /* 제목 크기 축소 */
     }
 }
 
+/* 모바일 반응형 디자인 (작은 화면 크기) */
 @media (max-width: 480px) {
     .movie-grid {
-        grid-template-columns: repeat(3, 1fr); /* 모바일에서 정확히 3열 */
+        grid-template-columns: repeat(3, 1fr); /* 정확히 3열로 나누기 */
         gap: 0.5rem; /* 카드 간격 축소 */
     }
 
     .search-title {
-        font-size: 1.4rem;
-        margin-bottom: 0.8rem;
+        font-size: 1.4rem; /* 제목 크기 축소 */
+        margin-bottom: 0.8rem; /* 제목과 카드 간격 축소 */
     }
 }
 
-/* 영화 카드 아이템 */
+/* 영화 카드 아이템 스타일 */
 .movie-item {
     position: relative;
     overflow: hidden;
-    border-radius: 8px; /* 모바일에서 더 작은 곡률 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 모바일에서 더 가벼운 그림자 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 카드에 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 효과 */
 }
 
+/* 영화 카드 호버 시 확대 효과 */
 .movie-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05); /* 확대 효과 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* 그림자 강화 */
 }
 
-/* 영화 제목 */
+/* 영화 제목 스타일 */
 .movie-title {
     font-size: 0.9rem;
     font-weight: bold;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; /* 긴 제목은 ... 처리 */
 }
 
-/* 영화 별점 */
+/* 영화 별점 스타일 */
 .movie-rating {
     font-size: 0.8rem;
     margin-top: 0.3rem;
-    color: #66bb6a;
+    color: #66bb6a; /* 별점 색상 */
 }
 
-/* 스크롤 탑 버튼 */
+/* 상단으로 가기 버튼 */
 .scroll-to-top {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
     width: 3rem;
     height: 3rem;
-    background: linear-gradient(135deg, #7e57c2, #66bb6a);
+    background: linear-gradient(135deg, #7e57c2, #66bb6a); /* 그라디언트 배경 */
     color: white;
     border: none;
-    border-radius: 50%;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 50%; /* 원형 버튼 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    z-index: 1000;
+    z-index: 1000; /* 화면 위로 배치 */
 }
 
+/* 상단으로 가기 버튼 호버 시 효과 */
 .scroll-to-top:hover {
-    transform: scale(1.1);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1); /* 확대 효과 */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* 그림자 강화 */
 }
 
+/* 상단으로 가기 버튼 클릭 시 효과 */
 .scroll-to-top:active {
-    transform: scale(0.9);
+    transform: scale(0.9); /* 클릭 시 축소 효과 */
 }
 
+/* 스크롤 탑 버튼 아이콘 스타일 */
 .scroll-to-top-icon {
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
 }

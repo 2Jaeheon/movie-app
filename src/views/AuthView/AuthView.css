@@ -3,24 +3,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    font-family: Arial, sans-serif;
+    height: 100vh; /* 화면 전체 높이 */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* 그라데이션 배경 */
+    font-family: Arial, sans-serif; /* 기본 폰트 */
     padding: 1rem; /* 모바일 여백 추가 */
 }
 
 /* 카드 컨테이너 */
 .auth-card-container {
     position: relative;
-    width: 480px;
-    height: 650px;
-    perspective: 1500px;
-    transform-style: preserve-3d;
-    transition: transform 0.8s ease;
+    width: 480px; /* 카드 너비 */
+    height: 650px; /* 카드 높이 */
+    perspective: 1500px; /* 3D 효과 */
+    transform-style: preserve-3d; /* 3D 변형 허용 */
+    transition: transform 0.8s ease; /* 전환 효과 */
 }
 
+/* 로그인과 회원가입 화면 간 전환 효과 */
 .auth-card-container.flip {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* 180도 회전 */
 }
 
 /* 개별 카드 */
@@ -28,136 +29,140 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: white;
-    padding: 3rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
+    background: white; /* 카드 배경색 */
+    padding: 3rem; /* 카드 내부 여백 */
+    border-radius: 15px; /* 둥근 모서리 */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 카드 그림자 */
+    backface-visibility: hidden; /* 뒤집었을 때 보이지 않도록 설정 */
+    transform-style: preserve-3d; /* 3D 변형 허용 */
 }
 
 .auth-card.front {
-    transform: rotateY(0deg);
+    transform: rotateY(0deg); /* 로그인 화면 */
 }
 
 .auth-card.back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* 회원가입 화면 */
 }
 
 /* 공통 스타일 */
 .auth-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #121212;
+    font-size: 2rem; /* 제목 크기 */
+    font-weight: bold; /* 제목 두께 */
+    text-align: center; /* 제목 가운데 정렬 */
+    margin-bottom: 1rem; /* 아래 여백 */
+    color: #121212; /* 제목 색상 */
 }
 
 .auth-subtitle {
-    text-align: center;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    color: black;
+    text-align: center; /* 부제목 가운데 정렬 */
+    font-size: 1rem; /* 부제목 크기 */
+    margin-bottom: 2rem; /* 아래 여백 */
+    color: black; /* 부제목 색상 */
 }
 
 .input-wrapper {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; /* 입력 필드 간 간격 */
 }
 
 .error-message {
-    color: #dc3545;
-    font-size: 0.9rem;
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
+    color: #dc3545; /* 오류 메시지 색상 */
+    font-size: 0.9rem; /* 오류 메시지 크기 */
+    margin-top: -0.5rem; /* 위 여백 */
+    margin-bottom: 1rem; /* 아래 여백 */
 }
 
 .auth-button {
-    width: 100%;
-    padding: 1rem;
+    width: 100%; /* 버튼 너비 */
+    padding: 1rem; /* 버튼 패딩 */
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 8px; /* 둥근 모서리 */
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* 버튼 배경 그라데이션 */
+    color: white; /* 버튼 텍스트 색상 */
+    font-size: 1.1rem; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 버튼 텍스트 두께 */
+    cursor: pointer; /* 마우스 커서 */
+    transition: all 0.3s ease; /* 버튼 전환 효과 */
 }
 
 /* hover 효과 */
 .auth-button:hover {
-    transform: scale(1.05); /* 살짝 확대 */
-    box-shadow: 0 8px 20px rgba(102, 51, 153, 0.4); /* 그림자 효과 강화 */
+    transform: scale(1.05); /* 버튼 크기 살짝 확대 */
+    box-shadow: 0 8px 20px rgba(102, 51, 153, 0.4); /* 버튼 그림자 효과 강화 */
 }
 
 /* 클릭 활성화 상태 */
 .auth-button:active {
-    transform: scale(0.98); /* 살짝 축소 */
-    box-shadow: 0 2px 10px rgba(102, 51, 153, 0.2); /* 그림자 효과 약화 */
+    transform: scale(0.98); /* 버튼 크기 살짝 축소 */
+    box-shadow: 0 2px 10px rgba(102, 51, 153, 0.2); /* 버튼 그림자 효과 약화 */
 }
 
 .auth-link {
-    margin-top: 1rem;
-    text-align: center;
-    color: black;
-    font-size: 0.9rem;
+    margin-top: 1rem; /* 상단 여백 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    color: black; /* 링크 텍스트 색상 */
+    font-size: 0.9rem; /* 링크 텍스트 크기 */
 }
 
 .auth-link .link {
-    color: #6a11cb;
-    cursor: pointer;
-    text-decoration: underline;
+    color: #6a11cb; /* 링크 텍스트 색상 */
+    cursor: pointer; /* 마우스 커서 */
+    text-decoration: underline; /* 링크 밑줄 */
 }
 
-
+/* 약관 모달 */
 .terms-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* 모달 가운데 정렬 */
+    align-items: center; /* 모달 세로 가운데 정렬 */
     color: black;
 }
 
+/* 모달 내용 */
 .modal-service {
     padding: 20px;
-    background: white;
-    border-radius: 5px;
-    max-width: 600px;
-    width: 90%;
+    background: white; /* 모달 배경색 */
+    border-radius: 5px; /* 모달 둥근 모서리 */
+    max-width: 600px; /* 최대 너비 */
+    width: 90%; /* 너비 */
     color: black;
 }
 
+/* 모달 닫기 버튼 */
 .close-modal-button {
-    background-color: #007bff;
-    color: white;
+    background-color: #007bff; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
     padding: 10px;
     border: none;
     cursor: pointer;
-    margin-top: 20px;
-    border-radius: 5px;
+    margin-top: 20px; /* 위 여백 */
+    border-radius: 5px; /* 버튼 둥근 모서리 */
 }
 
+/* 모달 닫기 버튼 hover 효과 */
 .close-modal-button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* 버튼 hover 시 색상 변화 */
 }
 
+/* 링크 스타일 */
 .link {
-    color: #476b4b;
-    margin-left: 10px;
-    cursor: pointer;
+    color: #476b4b; /* 링크 텍스트 색상 */
+    margin-left: 10px; /* 링크 간격 */
+    cursor: pointer; /* 마우스 커서 */
 }
 
 /* 모바일 최적화 */
 @media (max-width: 768px) {
     .auth-card-container {
-        width: 100%;
-        max-width: 340px; /* 카드 너비 줄이기 */
-        height: 590px; /* 카드 높이 줄이기 */
+        width: 100%; /* 카드 너비 100% */
+        max-width: 340px; /* 카드 최대 너비 */
+        height: 590px; /* 카드 높이 */
     }
 
     .auth-card {
@@ -178,7 +183,7 @@
     }
 
     .input-wrapper {
-        margin-bottom: 0.6rem; /* 필드 간격 줄이기 */
+        margin-bottom: 0.6rem; /* 입력 필드 간격 줄이기 */
     }
 
     .error-message {

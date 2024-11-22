@@ -1,44 +1,44 @@
 /* 영화 리스트 전체 스타일 */
 .movie-list {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #121212; /* 배경색 */
-    border-radius: 8px;
+    margin-bottom: 2rem; /* 리스트 하단 여백 */
+    padding: 1rem; /* 내부 여백 */
+    background-color: #121212; /* 배경색 (어두운 색상) */
+    border-radius: 8px; /* 둥근 모서리 */
 }
 
 .movie-list-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: white;
-    text-align: center;
+    font-size: 1.5rem; /* 타이틀 폰트 크기 */
+    margin-bottom: 1rem; /* 타이틀과 리스트 간 간격 */
+    color: white; /* 타이틀 텍스트 색상 */
+    text-align: center; /* 타이틀 중앙 정렬 */
 }
 
 /* 가로 스크롤 가능 영역 */
 .movie-list-scroll {
-    display: flex;
-    gap: 1rem;
+    display: flex; /* 영화 항목들을 가로로 배치 */
+    gap: 1rem; /* 카드 간 간격 */
     overflow-x: auto; /* 가로 스크롤 활성화 */
-    padding-bottom: 1rem;
+    padding-bottom: 1rem; /* 스크롤 아래 여백 */
 
     /* 스크롤바 숨김 */
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨김 */
 }
 
 .movie-list-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+    display: none; /* Chrome, Safari에서 스크롤바 숨김 */
 }
 
 /* 영화 카드 감싸는 컨테이너 */
 .movie-item-wrapper {
-    padding-top: 1rem;
+    padding-top: 1rem; /* 카드 상단 여백 */
     flex: 0 0 auto; /* 고정 크기로 가로 스크롤 활성화 */
     width: 220px; /* 기본 카드 크기 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 시 애니메이션 */
 }
 
 .movie-item-wrapper:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05); /* 호버 시 카드 확대 */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* 호버 시 그림자 확대 */
 }
 
 /* 반응형 디자인 */
@@ -58,7 +58,7 @@
     }
 
     .movie-list-title {
-        font-size: 1.3rem;
+        font-size: 1.3rem; /* 타이틀 크기 축소 */
     }
 }
 
@@ -68,10 +68,10 @@
     }
 
     .movie-list-title {
-        font-size: 1.2rem;
+        font-size: 1.2rem; /* 타이틀 크기 더 축소 */
     }
 
     .movie-list-scroll {
-        gap: 0.8rem; /* 카드 간격 줄임 */
+        gap: 0.8rem; /* 카드 간 간격 줄임 */
     }
 }
