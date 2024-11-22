@@ -8,6 +8,7 @@ interface ButtonProps {
     variant?: "primary" | "secondary" | "tertiary"; // 버튼 스타일 (기본값: "primary")
     size?: "small" | "medium" | "large"; // 버튼 크기 (기본값: "medium")
     disabled?: boolean; // 버튼 비활성화 여부 (기본값: false)
+    
 }
 
 const Button: React.FC<ButtonProps> = ({
