@@ -1,8 +1,6 @@
 # GitHub Actions Workflow: Combined Test, Build, Performance, and Deployment
-
 # 이 워크플로우는 main 브랜치로의 PR과 푸시 시 트리거되며,
 # 테스트 코드 실행, 빌드 검증, 성능 및 웹 표준 검사를 수행한 후 자동 배포를 진행합니다.
-
 name: Test, Build, Performance and Deployment Workflow
 
 on:
