@@ -10,7 +10,6 @@ interface ButtonProps {
     disabled?: boolean; // 버튼 비활성화 여부 (기본값: false)
 }
 
-
 const Button: React.FC<ButtonProps> = ({
                                            label,
                                            onClick,
