@@ -54,7 +54,7 @@ jobs:
       - name: Run Lighthouse for performance and web standards check
         uses: treosh/lighthouse-ci-action@v9
         with:
-          urls: 'https://2jaeheon.site/movie-app/'
+          urls: 'https://2jaeheon.github.io/movie-app/'
           uploadArtifacts: true
           artifactName: 'lighthouse-report'
 
