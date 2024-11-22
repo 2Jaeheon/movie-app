@@ -13,12 +13,15 @@ const WishlistView: React.FC = () => {
     const [movieDetails, setMovieDetails] = useState<any | null>(null);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
+    // 영화 클릭 시, 해당 영화의 세부 정보와 트레일러를 가져오는 함수
     const handleMovieClick = async (movie: Movie) => {
         setSelectedMovie(movie);
         try {
+            // 영화 세부 정보 가져오기
             const details = await fetchMovieDetails(movie.id);
             setMovieDetails(details);
 
+            // 영화 트레일러 URL 가져오기
             const trailerUrl = await fetchMovieVideos(movie.id);
             setVideoUrl(trailerUrl);
             setIsModalOpen(true);
@@ -26,7 +29,7 @@ const WishlistView: React.FC = () => {
             alert("Failed to fetch movie details. Please try again.");
         }
     };
-
+    // 모달을 닫는 함수
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setTimeout(() => {
@@ -36,6 +39,7 @@ const WishlistView: React.FC = () => {
         }, 300);
     };
 
+    // 찜 목록에서 영화 제거 함수
     const handleWishlistRemove = (movieId: number, e: React.MouseEvent) => {
         e.stopPropagation();
         removeFromWishlist(movieId);
@@ -46,7 +50,7 @@ const WishlistView: React.FC = () => {
             <header className="wishlist-header">
                 <h1>✨ My Movie Wishlist</h1>
             </header>
-
+            {/* 찜 목록이 비어있는 경우 */}
             {wishlist.length === 0 ? (
                 <div className="wishlist-empty">
                     <p>Your wishlist is empty.<br/>Add movies you love!</p>
@@ -74,7 +78,7 @@ const WishlistView: React.FC = () => {
                     )}
                 </div>
             )}
-
+            {/* MovieModal 컴포넌트 사용 */}
             <MovieModal
                 isOpen={isModalOpen}
                 movie={selectedMovie}
@@ -84,11 +88,10 @@ const WishlistView: React.FC = () => {
                 onWishlistToggle={() => {
                     if (selectedMovie) handleWishlistRemove(selectedMovie.id, {} as React.MouseEvent);
                 }}
-                isInWishlist={!!selectedMovie}
+                isInWishlist={!!selectedMovie} // 영화가 찜 목록에 있는지 확인
             />
         </div>
-    )
-        ;
+    );
 };
 
 export default WishlistView;

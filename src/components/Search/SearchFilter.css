@@ -1,101 +1,115 @@
+/* 검색 필터 전체 컨테이너 스타일 */
 .search-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-    border-radius: 16px;
-    background: rgba(28, 28, 43, 0.95);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    max-width: 1200px;
-    margin: 2rem auto;
-    animation: fadeIn 0.5s ease-in-out;
+    display: flex; /* flexbox로 배치 */
+    flex-direction: column; /* 세로 정렬 */
+    gap: 1.5rem; /* 항목 간 간격 */
+    padding: 2rem; /* 내부 여백 */
+    border-radius: 16px; /* 둥근 모서리 */
+    background: rgba(28, 28, 43, 0.95); /* 배경색 (어두운 투명색) */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    max-width: 1200px; /* 최대 너비 1200px */
+    margin: 2rem auto; /* 상하 여백 2rem, 가로 중앙 정렬 */
+    animation: fadeIn 0.5s ease-in-out; /* 부드러운 등장 애니메이션 */
 }
 
+/* 필터 그리드 스타일 (2열로 나누기) */
 .filter-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    display: grid; /* 그리드로 배치 */
+    grid-template-columns: 1fr 1fr; /* 2열로 설정 */
+    gap: 2rem; /* 열 간 간격 */
 }
 
+/* 필터 항목 스타일 (세로로 배치) */
 .filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: flex; /* flexbox로 배치 */
+    flex-direction: column; /* 세로 정렬 */
+    gap: 0.5rem; /* 항목 간 간격 */
 }
 
+/* 필터 레이블 스타일 */
 .filter-group label {
-    font-size: 1rem;
-    color: #bdbdbd;
-    font-weight: 600;
-    text-transform: capitalize;
-    transition: color 0.3s ease;
+    font-size: 1rem; /* 폰트 크기 */
+    color: #bdbdbd; /* 레이블 색상 */
+    font-weight: 600; /* 글씨 두께 */
+    text-transform: capitalize; /* 첫 글자 대문자 */
+    transition: color 0.3s ease; /* 색상 변화에 부드러운 트랜지션 */
 }
 
+/* 레이블에 마우스 오버 시 색상 변화 */
 .filter-group label:hover {
-    color: #f3e5f5;
+    color: #f3e5f5; /* 색상 변화 */
 }
 
+/* 선택 박스 스타일 */
 .filter-group select {
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    background: #2c2c3c;
-    color: #fff;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    padding: 0.8rem 1rem; /* 내부 여백 */
+    font-size: 1rem; /* 폰트 크기 */
+    border-radius: 10px; /* 둥근 모서리 */
+    background: #2c2c3c; /* 배경색 */
+    color: #fff; /* 글씨 색상 */
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3); /* 내부 그림자 효과 */
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* 테두리 및 그림자 애니메이션 */
+    cursor: pointer; /* 클릭 가능한 커서 */
 }
 
+/* 선택 박스에 마우스 오버 시 효과 */
 .filter-group select:hover {
-    border-color: #ab47bc;
-    box-shadow: 0 4px 12px rgba(171, 71, 188, 0.4);
+    border-color: #ab47bc; /* 테두리 색상 변경 */
+    box-shadow: 0 4px 12px rgba(171, 71, 188, 0.4); /* 그림자 효과 */
 }
 
+/* 버튼 그룹 스타일 (가로로 배치) */
 .filter-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    display: flex; /* flexbox로 배치 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    gap: 1.5rem; /* 버튼 간 간격 */
+    margin-top: 1.5rem; /* 상단 여백 */
 }
 
+/* 검색 버튼과 초기화 버튼 스타일 */
 .search-button,
 .reset-button {
-    padding: 0.9rem 2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0.9rem 2rem; /* 버튼 내부 여백 */
+    font-size: 1rem; /* 폰트 크기 */
+    font-weight: bold; /* 글씨 두께 */
+    border: none; /* 테두리 없음 */
+    border-radius: 12px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 가능한 커서 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 효과 */
 }
 
+/* 검색 버튼 스타일 */
 .search-button {
-    background: linear-gradient(135deg, #6a1b9a, #7e57c2);
-    color: #fff;
+    background: linear-gradient(135deg, #6a1b9a, #7e57c2); /* 보라색 그라디언트 배경 */
+    color: #fff; /* 글씨 색상 흰색 */
 }
 
+/* 검색 버튼 호버 시 스타일 */
 .search-button:hover {
-    background: linear-gradient(135deg, #7e57c2, #ab47bc);
-    box-shadow: 0 8px 20px rgba(171, 71, 188, 0.5);
+    background: linear-gradient(135deg, #7e57c2, #ab47bc); /* 더 진한 보라색으로 변경 */
+    box-shadow: 0 8px 20px rgba(171, 71, 188, 0.5); /* 그림자 효과 */
 }
 
+/* 초기화 버튼 스타일 */
 .reset-button {
-    background: linear-gradient(135deg, #3a3a3a, #424242);
-    color: #fff;
+    background: linear-gradient(135deg, #3a3a3a, #424242); /* 회색 그라디언트 배경 */
+    color: #fff; /* 글씨 색상 흰색 */
 }
 
+/* 초기화 버튼 호버 시 스타일 */
 .reset-button:hover {
-    background: linear-gradient(135deg, #424242, #616161);
-    box-shadow: 0 8px 20px rgba(97, 97, 97, 0.5);
+    background: linear-gradient(135deg, #424242, #616161); /* 배경색 변화 */
+    box-shadow: 0 8px 20px rgba(97, 97, 97, 0.5); /* 그림자 효과 */
 }
 
+/* 애니메이션: fadeIn */
 @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(20px);
+        opacity: 0; /* 처음에는 투명 */
+        transform: translateY(20px); /* 아래에서 올라오는 효과 */
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1; /* 최종적으로 보이게 */
+        transform: translateY(0); /* 정상 위치로 */
     }
 }

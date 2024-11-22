@@ -2,13 +2,13 @@ import React from "react";
 import "./SearchFilter.css";
 
 interface SearchFilterProps {
-    filters: { genre: string; rating: string; sort: string; country: string };
-    onFilterChange: (filters: { genre: string; rating: string; sort: string; country: string }) => void;
-    onSearch: () => void;
-    onReset: () => void;
+    filters: { genre: string; rating: string; sort: string; country: string }; // 필터 조건
+    onFilterChange: (filters: { genre: string; rating: string; sort: string; country: string }) => void; // 필터 상태 변경 함수
+    onSearch: () => void; // 검색 함수
+    onReset: () => void; // 필터 초기화 함수
 }
 
-// 장르 목록 추가
+// 장르 목록
 const genres = [
     {id: "", name: "모든 장르"},
     {id: "28", name: "액션"},
@@ -32,7 +32,7 @@ const genres = [
     {id: "37", name: "서부극"},
 ];
 
-// 국가 목록 추가
+// 국가 목록
 const countries = [
     {id: "", name: "모든 국가"},
     {id: "ko", name: "한국"},
@@ -43,14 +43,16 @@ const countries = [
 ];
 
 const SearchFilter: React.FC<SearchFilterProps> = ({filters, onFilterChange, onSearch, onReset}) => {
+    // 선택된 값이 변경될 때마다 필터 상태를 업데이트하는 함수
     const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = e.target;
-        onFilterChange({...filters, [name]: value});
+        onFilterChange({...filters, [name]: value}); // 필터 상태 변경
     };
 
     return (
         <div className="search-filter">
             <div className="filter-grid">
+                {/* 장르 필터 */}
                 <div className="filter-group">
                     <label htmlFor="genre">장르</label>
                     <select
@@ -67,6 +69,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({filters, onFilterChange, onS
                     </select>
                 </div>
 
+                {/* 평점 필터 */}
                 <div className="filter-group">
                     <label htmlFor="rating">평점</label>
                     <select
@@ -82,6 +85,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({filters, onFilterChange, onS
                     </select>
                 </div>
 
+                {/* 정렬 필터 */}
                 <div className="filter-group">
                     <label htmlFor="sort">정렬</label>
                     <select
@@ -97,6 +101,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({filters, onFilterChange, onS
                     </select>
                 </div>
 
+                {/* 국가 필터 */}
                 <div className="filter-group">
                     <label htmlFor="country">국가</label>
                     <select
@@ -114,6 +119,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({filters, onFilterChange, onS
                 </div>
             </div>
 
+            {/* 검색 및 초기화 버튼 */}
             <div className="filter-actions">
                 <button className="search-button" onClick={onSearch}>
                     검색
