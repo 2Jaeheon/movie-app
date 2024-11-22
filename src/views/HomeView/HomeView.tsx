@@ -60,6 +60,18 @@ const HomeView: React.FC = () => {
                     const randomIndex = Math.floor(Math.random() * trending.length);
                     setCurrentBannerMovie(trending[randomIndex]);
                 }
+
+                // 배너 영화 10초마다 변경
+                const bannerInterval = setInterval(() => {
+                    if (trending.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * trending.length);
+                        setCurrentBannerMovie(trending[randomIndex]);
+                    }
+                }, 10000); // 10초마다 변경
+
+                // 컴포넌트 언마운트 시 interval 해제
+                return () => clearInterval(bannerInterval);
+
             } catch (err) {
                 setError("API 호출 실패: TMDB API 키를 확인해주세요."); // API 호출 실패 시 에러 메시지 설정
             }
