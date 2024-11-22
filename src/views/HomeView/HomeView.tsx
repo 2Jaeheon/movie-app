@@ -60,7 +60,7 @@ const HomeView: React.FC = () => {
                     const randomIndex = Math.floor(Math.random() * trending.length);
                     setCurrentBannerMovie(trending[randomIndex]);
                 }
-                
+
 
                 // 배너 영화 10초마다 변경
                 const bannerInterval = setInterval(() => {
