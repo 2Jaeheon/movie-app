@@ -29,4 +29,5 @@ const ErrorComponent: React.FC<ErrorComponentProps> = ({
     );
 };
 
+
 export default ErrorComponent;
