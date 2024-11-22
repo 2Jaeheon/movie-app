@@ -1,35 +1,36 @@
+/* 로더 기본 스타일 */
 .loader {
-    border: 4px solid #f3f3f3; /* 기본 색상 */
-    border-top: 4px solid #3498db; /* 로더 애니메이션 색상 */
-    border-radius: 50%;
-    animation: spin 1.5s linear infinite;
+    border: 4px solid #f3f3f3; /* 기본 색상 (배경 색상) */
+    border-top: 4px solid #3498db; /* 로더 애니메이션을 위한 색상 (위쪽 테두리) */
+    border-radius: 50%; /* 원형으로 만들기 위한 둥근 모서리 */
+    animation: spin 1.5s linear infinite; /* 회전 애니메이션 적용 */
 }
 
 /* 크기 옵션 */
 .loader.small {
-    width: 10px;
-    height: 10px;
-    border-width: 3px;
+    width: 10px; /* 작은 로더 크기 */
+    height: 10px; /* 작은 로더 크기 */
+    border-width: 3px; /* 작은 로더의 테두리 두께 */
 }
 
 .loader.medium {
-    width: 30px;
-    height: 30px;
-    border-width: 5px;
+    width: 30px; /* 중간 크기 로더 */
+    height: 30px; /* 중간 크기 로더 */
+    border-width: 5px; /* 중간 크기 로더의 테두리 두께 */
 }
 
 .loader.large {
-    width: 50px;
-    height: 50px;
-    border-width: 6px;
+    width: 50px; /* 큰 로더 크기 */
+    height: 50px; /* 큰 로더 크기 */
+    border-width: 6px; /* 큰 로더의 테두리 두께 */
 }
 
 /* 회전 애니메이션 */
 @keyframes spin {
     0% {
-        transform: rotate(0deg);
+        transform: rotate(0deg); /* 회전 시작 */
     }
     100% {
-        transform: rotate(360deg);
+        transform: rotate(360deg); /* 한 바퀴 회전 */
     }
 }

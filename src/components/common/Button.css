@@ -1,64 +1,64 @@
 /* 공통 스타일 */
 .button {
-    font-family: inherit;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    font-family: inherit; /* 부모 요소의 폰트 패밀리 상속 */
+    font-size: 1rem; /* 기본 폰트 크기 */
+    padding: 0.5rem 1rem; /* 기본 패딩 */
+    border-radius: 5px; /* 버튼의 둥근 모서리 */
+    border: none; /* 기본 테두리 제거 */
+    cursor: pointer; /* 마우스 커서 모양 */
+    transition: all 0.3s ease; /* 모든 속성에 0.3초 이징 효과 */
+    display: inline-flex; /* 버튼 내부 요소들을 가로로 배치 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    justify-content: center; /* 가로로 가운데 정렬 */
 }
 
 /* 비활성화 상태 */
 .button.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+    cursor: not-allowed; /* 비활성화된 상태에서는 클릭 불가 커서 */
+    opacity: 0.5; /* 비활성화된 버튼의 투명도 조정 */
 }
 
 /* 크기 옵션 */
 .button.small {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem; /* 작은 버튼의 패딩 */
+    font-size: 0.875rem; /* 작은 버튼의 폰트 크기 */
 }
 
 .button.medium {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    padding: 0.5rem 1rem; /* 기본 버튼의 패딩 */
+    font-size: 1rem; /* 기본 버튼의 폰트 크기 */
 }
 
 .button.large {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.125rem;
+    padding: 0.75rem 1.5rem; /* 큰 버튼의 패딩 */
+    font-size: 1.125rem; /* 큰 버튼의 폰트 크기 */
 }
 
 /* 스타일 옵션 */
 .button.primary {
-    background-color: #28a745; /* 초록색 */
-    color: white;
+    background-color: #28a745; /* 초록색 배경 */
+    color: white; /* 글자 색은 흰색 */
 }
 
 .button.primary:hover {
-    background-color: #218838;
+    background-color: #218838; /* 마우스 오버 시 초록색 배경 어두운 색 */
 }
 
 .button.secondary {
-    background-color: #6c757d; /* 회색 */
-    color: white;
+    background-color: #6c757d; /* 회색 배경 */
+    color: white; /* 글자 색은 흰색 */
 }
 
 .button.secondary:hover {
-    background-color: #5a6268;
+    background-color: #5a6268; /* 마우스 오버 시 회색 배경 어두운 색 */
 }
 
 .button.tertiary {
-    background-color: transparent;
-    color: #28a745;
-    border: 2px solid #28a745;
+    background-color: transparent; /* 투명한 배경 */
+    color: #28a745; /* 초록색 글자 */
+    border: 2px solid #28a745; /* 초록색 테두리 */
 }
 
 .button.tertiary:hover {
-    background-color: #e9f5ee;
+    background-color: #e9f5ee; /* 마우스 오버 시 연한 초록색 배경 */
 }

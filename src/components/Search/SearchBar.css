@@ -1,39 +1,43 @@
+/* 검색바 컨테이너 스타일 */
 .search-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem 0;
-    position: relative;
+    display: flex; /* flexbox로 요소 배치 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin: 2rem 0; /* 상하 여백 */
+    position: relative; /* 자식 요소의 절대 위치 설정을 위해 상대 위치 */
 }
 
+/* 검색 입력 필드 스타일 */
 .search-bar input {
-    width: 60%;
-    max-width: 600px;
-    padding: 0.8rem 1rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 25px;
-    background: #2c2c2c;
-    color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    outline: none;
+    width: 60%; /* 입력 필드 너비 (부모 요소의 60%) */
+    max-width: 600px; /* 최대 너비 600px */
+    padding: 0.8rem 1rem; /* 내부 여백 */
+    font-size: 1.2rem; /* 폰트 크기 */
+    border: none; /* 기본 테두리 없음 */
+    border-radius: 25px; /* 둥근 모서리 */
+    background: #2c2c2c; /* 배경색 (어두운 회색) */
+    color: #fff; /* 글자 색상 흰색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+    transition: all 0.3s ease; /* 모든 속성에 부드러운 트랜지션 효과 */
+    outline: none; /* 포커스 시 아웃라인 제거 */
 }
 
+/* 입력 필드의 플레이스홀더 스타일 */
 .search-bar input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
+    color: rgba(255, 255, 255, 0.7); /* 플레이스홀더 텍스트 색상 (흰색, 약간 투명) */
+    font-style: italic; /* 이탤릭체 */
 }
 
+/* 입력 필드 포커스 시 스타일 */
 .search-bar input:focus {
-    background: linear-gradient(135deg, #7e57c2, #66bb6a);
-    color: white;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    transform: scale(1.03);
+    background: linear-gradient(135deg, #7e57c2, #66bb6a); /* 포커스 시 그라디언트 배경 */
+    color: white; /* 포커스 시 글자 색상 흰색 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* 그림자 확대 */
+    transform: scale(1.03); /* 크기 확대 */
 }
 
-
+/* 포커스 시 추가된 효과 (부모 요소의 가상 요소) */
 .search-bar input:focus + .search-bar::before {
-    background: linear-gradient(135deg, rgba(126, 87, 194, 0.6), rgba(102, 187, 106, 0.6));
-    filter: blur(15px);
+    background: linear-gradient(135deg, rgba(126, 87, 194, 0.6), rgba(102, 187, 106, 0.6)); /* 그라디언트 배경 */
+    filter: blur(15px); /* 배경 흐림 효과 */
 }

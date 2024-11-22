@@ -1,142 +1,141 @@
 /* 홈뷰 전체 배경 */
 .home-view {
-    background-color: #121212;
-    color: white;
-    padding: 2rem;
-    padding-top: 90px;
+    background-color: #121212; /* 어두운 배경 색상 */
+    color: white; /* 텍스트 색상 */
+    padding: 2rem; /* 전체 여백 */
+    padding-top: 90px; /* 상단 여백 (헤더가 고정되어 있을 경우, 콘텐츠가 헤더 밑에 오도록) */
 }
 
 /* 배너 스타일 */
 .banner {
     position: relative;
-    background-size: cover;
-    background-position: center;
-    height: 500px; /* 기본 크기 */
+    background-size: cover; /* 배경 이미지를 덮는 방식으로 크기 조정 */
+    background-position: center; /* 배경 이미지 중앙 정렬 */
+    height: 500px; /* 기본 배너 높이 */
     display: flex;
-    align-items: flex-end;
-    justify-content: start;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    animation: fadeIn 1s ease-in-out;
+    align-items: flex-end; /* 배너 내부 텍스트를 하단에 정렬 */
+    justify-content: start; /* 왼쪽 정렬 */
+    border-radius: 12px; /* 둥근 모서리 */
+    overflow: hidden; /* 배경이 모서리 밖으로 나오지 않도록 설정 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* 그림자 효과 */
+    animation: fadeIn 1s ease-in-out; /* 배너 나타날 때 애니메이션 */
 }
 
 /* 배너 텍스트 */
 .banner-content {
-    padding: 2rem;
-    max-width: 600px;
-    z-index: 2;
+    padding: 2rem; /* 텍스트 내용에 여백 추가 */
+    max-width: 600px; /* 최대 너비 설정 */
+    z-index: 2; /* 텍스트가 배경 위에 표시되도록 */
 }
 
 .banner-title {
-    font-size: 2.8rem; /* 기본 크기 */
-    font-weight: bold;
-    line-height: 1.2;
-    color: #f1f1f1;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-    animation: slideInFromLeft 1s ease-out;
+    font-size: 2.8rem; /* 배너 제목 크기 */
+    font-weight: bold; /* 제목 두께 */
+    line-height: 1.2; /* 제목 줄 간격 */
+    color: #f1f1f1; /* 제목 색상 */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* 제목에 그림자 효과 */
+    animation: slideInFromLeft 1s ease-out; /* 제목 슬라이드 애니메이션 */
 }
 
 .banner-description {
-    font-size: 1rem;
-    margin: 1rem 0;
-    line-height: 1.5;
-    color: rgba(230, 230, 230, 0.85);
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    font-size: 1rem; /* 배너 설명 크기 */
+    margin: 1rem 0; /* 위, 아래 여백 */
+    line-height: 1.5; /* 설명 줄 간격 */
+    color: rgba(230, 230, 230, 0.85); /* 설명 색상 */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* 설명에 그림자 효과 */
 }
 
 /* 배너 버튼들 */
 .banner-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1rem; /* 버튼 간 간격 */
 }
 
 .play-button,
 .info-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    padding: 0.8rem 2rem; /* 버튼 여백 */
+    font-size: 1rem; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 버튼 텍스트 두께 */
+    border-radius: 8px; /* 둥근 모서리 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 클릭 시 포인터 커서 */
+    transition: all 0.3s ease; /* 버튼 전환 효과 */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* 텍스트에 그림자 효과 */
 }
 
 .play-button {
-    background: linear-gradient(90deg, #43a047, #66bb6a);
-    color: white;
+    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라데이션 */
+    color: white; /* 텍스트 색상 */
 }
 
 .play-button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(90deg, #388e3c, #43a047);
-    box-shadow: 0 4px 15px rgba(67, 160, 71, 0.6);
+    transform: scale(1.05); /* 호버 시 크기 확대 */
+    background: linear-gradient(90deg, #388e3c, #43a047); /* 호버 시 색상 변경 */
+    box-shadow: 0 4px 15px rgba(67, 160, 71, 0.6); /* 호버 시 그림자 강화 */
 }
 
 .info-button {
-    background: rgba(240, 240, 240, 0.9);
-    color: black;
+    background: rgba(240, 240, 240, 0.9); /* 회색 배경 */
+    color: black; /* 텍스트 색상 */
 }
 
 .info-button:hover {
-    transform: scale(1.05);
-    background: white;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.6);
+    transform: scale(1.05); /* 호버 시 크기 확대 */
+    background: white; /* 호버 시 배경색 변경 */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.6); /* 호버 시 그림자 강화 */
 }
 
 /* 영화 목록 */
 .movie-lists {
-    margin-top: 2rem;
+    margin-top: 2rem; /* 영화 목록 간격 */
 }
 
 .fade-in {
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out; /* 영화 목록 나타날 때 애니메이션 */
 }
-
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .banner {
-        height: 350px; /* 모바일 배너 높이 줄임 */
+        height: 350px; /* 모바일에서 배너 높이 축소 */
     }
 
     .banner-title {
-        font-size: 2rem; /* 모바일 타이틀 크기 축소 */
+        font-size: 2rem; /* 모바일에서 배너 제목 크기 축소 */
     }
 
     .banner-description {
-        font-size: 0.9rem; /* 모바일 설명 크기 축소 */
+        font-size: 0.9rem; /* 모바일에서 설명 텍스트 크기 축소 */
     }
 
     .play-button,
     .info-button {
-        font-size: 0.9rem; /* 버튼 크기 축소 */
-        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem; /* 모바일에서 버튼 텍스트 크기 축소 */
+        padding: 0.6rem 1.5rem; /* 모바일에서 버튼 여백 축소 */
     }
 }
 
 @media (max-width: 480px) {
     .banner {
-        height: 300px; /* 더 작은 화면 배너 */
+        height: 300px; /* 더 작은 화면에서 배너 크기 축소 */
     }
 
     .banner-content {
-        padding: 1.5rem; /* 배너 내부 여백 축소 */
+        padding: 1.5rem; /* 배너 내용 여백 축소 */
     }
 
     .banner-title {
-        font-size: 1.8rem; /* 타이틀 더 작게 */
+        font-size: 1.8rem; /* 모바일에서 제목 크기 더 축소 */
     }
 
     .banner-description {
-        font-size: 0.8rem; /* 설명 크기 축소 */
+        font-size: 0.8rem; /* 모바일에서 설명 크기 더 축소 */
     }
 
     .play-button,
     .info-button {
-        font-size: 0.8rem; /* 버튼 텍스트 크기 */
-        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem; /* 모바일에서 버튼 텍스트 크기 더 축소 */
+        padding: 0.5rem 1.2rem; /* 모바일에서 버튼 여백 더 축소 */
     }
 }
 
@@ -146,69 +145,69 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 100vh; /* 에러 화면이 전체 높이를 차지하도록 설정 */
     background-color: #121212; /* 어두운 배경 */
-    color: white;
-    text-align: center;
-    padding: 2rem;
+    color: white; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 2rem; /* 여백 추가 */
     animation: fadeIn 1s ease-in-out; /* 부드러운 진입 애니메이션 */
 }
 
 .error-title {
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 2.5rem; /* 에러 제목 크기 */
+    font-weight: bold; /* 제목 두께 */
     color: #e53935; /* 빨간색 포인트 */
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    margin-bottom: 1rem;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* 제목에 그림자 효과 */
+    margin-bottom: 1rem; /* 아래 여백 */
 }
 
 .error-message {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-size: 1.2rem; /* 에러 메시지 크기 */
+    font-weight: bold; /* 에러 메시지 두께 */
+    margin-bottom: 1rem; /* 아래 여백 */
     color: #f5c518; /* 경고 색상 */
 }
 
 .error-description {
-    font-size: 1rem;
-    color: #bbb;
-    margin-bottom: 2rem;
+    font-size: 1rem; /* 설명 텍스트 크기 */
+    color: #bbb; /* 설명 색상 */
+    margin-bottom: 2rem; /* 아래 여백 */
 }
 
 /* 다시 시도하기 버튼 */
 .retry-button {
-    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라디언트 */
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라데이션 */
+    color: white; /* 버튼 텍스트 색상 */
+    font-size: 1.2rem; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 버튼 텍스트 두께 */
+    padding: 0.8rem 2rem; /* 버튼 여백 */
+    border: none; /* 테두리 제거 */
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 시 포인터 커서 */
+    transition: all 0.3s ease; /* 버튼 전환 효과 */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* 버튼 텍스트 그림자 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* 버튼 그림자 */
 }
 
 .retry-button:hover {
-    background: linear-gradient(90deg, #388e3c, #43a047);
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(90deg, #388e3c, #43a047); /* 호버 시 색상 변경 */
+    transform: scale(1.05); /* 호버 시 버튼 크기 확대 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6); /* 호버 시 그림자 강화 */
 }
 
 .retry-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(0.95); /* 클릭 시 버튼 크기 축소 */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* 클릭 시 그림자 약화 */
 }
 
 /* 에러 화면 진입 애니메이션 */
 @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(-10%);
+        opacity: 0; /* 초기 상태에서 투명 */
+        transform: translateY(-10%); /* 화면 위로부터 이동 */
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1; /* 완전한 불투명 */
+        transform: translateY(0); /* 원래 위치로 이동 */
     }
 }

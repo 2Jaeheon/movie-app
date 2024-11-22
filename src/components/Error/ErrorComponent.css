@@ -1,72 +1,72 @@
 /* 에러 화면 스타일 */
 .error-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #121212; /* 어두운 배경 */
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    animation: fadeIn 1s ease-in-out; /* 부드러운 진입 애니메이션 */
+    display: flex; /* flexbox로 레이아웃 설정 */
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    min-height: 100vh; /* 화면 높이를 가득 채우도록 설정 */
+    background-color: #121212; /* 어두운 배경색 */
+    color: white; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 2rem; /* 내부 여백 */
+    animation: fadeIn 1s ease-in-out; /* 화면 진입 시 부드러운 애니메이션 */
 }
 
 .error-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #e53935; /* 빨간색 포인트 */
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    margin-bottom: 1rem;
+    font-size: 2.5rem; /* 제목 크기 */
+    font-weight: bold; /* 두꺼운 글씨 */
+    color: #e53935; /* 빨간색 포인트 색상 */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* 제목에 그림자 효과 추가 */
+    margin-bottom: 1rem; /* 제목 아래 간격 */
 }
 
 .error-message {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #f5c518; /* 경고 색상 */
+    font-size: 1.2rem; /* 메시지 폰트 크기 */
+    font-weight: bold; /* 두꺼운 글씨 */
+    margin-bottom: 1rem; /* 메시지 아래 간격 */
+    color: #f5c518; /* 경고 메시지 색상 */
 }
 
 .error-description {
-    font-size: 1rem;
-    color: #bbb;
-    margin-bottom: 2rem;
+    font-size: 1rem; /* 설명 텍스트 크기 */
+    color: #bbb; /* 연한 회색 텍스트 색상 */
+    margin-bottom: 2rem; /* 설명 아래 간격 */
 }
 
-/* 다시 시도하기 버튼 */
+/* 다시 시도하기 버튼 스타일 */
 .retry-button {
-    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라디언트 */
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #43a047, #66bb6a); /* 초록색 그라디언트 배경 */
+    color: white; /* 텍스트 색상 흰색 */
+    font-size: 1.2rem; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 두꺼운 글씨 */
+    padding: 0.8rem 2rem; /* 버튼 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 가능한 커서 */
+    transition: all 0.3s ease; /* 부드러운 애니메이션 */
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* 버튼 텍스트에 그림자 효과 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* 버튼에 그림자 효과 */
 }
 
 .retry-button:hover {
-    background: linear-gradient(90deg, #388e3c, #43a047);
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(90deg, #388e3c, #43a047); /* 마우스 오버 시 그라디언트 색상 변경 */
+    transform: scale(1.05); /* 마우스 오버 시 확대 효과 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6); /* 마우스 오버 시 그림자 강도 증가 */
 }
 
 .retry-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(0.95); /* 클릭 시 버튼 크기 축소 */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* 클릭 시 그림자 효과 축소 */
 }
 
 /* 에러 화면 진입 애니메이션 */
 @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(-10%);
+        opacity: 0; /* 처음에는 투명 */
+        transform: translateY(-10%); /* 화면 밖에서 위로 이동 */
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1; /* 최종적으로 보임 */
+        transform: translateY(0); /* 정상 위치로 이동 */
     }
 }

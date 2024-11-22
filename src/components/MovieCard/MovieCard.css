@@ -1,80 +1,80 @@
 /* 영화 카드 컨테이너 */
 .movie-card {
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative; /* 상대적 위치 설정 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 시 애니메이션 */
+    border-radius: 12px; /* 둥근 모서리 */
+    overflow: hidden; /* 카드 내용이 넘칠 경우 숨김 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* 세로로 정렬 */
     aspect-ratio: 2 / 3; /* 가로/세로 비율 고정 */
 }
 
 /* 호버 시 크기 조정 */
 .movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    z-index: 2;
+    transform: scale(1.05); /* 카드 확대 */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* 그림자 확대 */
+    z-index: 2; /* 카드가 다른 요소 위에 보이도록 설정 */
 }
 
 /* 영화 포스터 */
 .movie-poster {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; /* 너비 100% */
+    height: 100%; /* 높이 100% */
+    object-fit: cover; /* 이미지가 비율에 맞게 잘리도록 설정 */
 }
 
 /* 영화 정보 */
 .movie-info {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
-    color: white;
-    padding: 10px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    position: absolute; /* 카드 하단에 고정 */
+    bottom: 0; /* 카드 하단에 위치 */
+    width: 100%; /* 너비 100% */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)); /* 그라데이션 배경 */
+    color: white; /* 텍스트 색상 흰색 */
+    padding: 10px; /* 패딩 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    opacity: 0; /* 초기에는 보이지 않음 */
+    transition: opacity 0.3s ease; /* 호버 시 opacity 부드럽게 변경 */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
 }
 
 /* 호버 시 영화 정보 표시 */
 .movie-card:hover .movie-info {
-    opacity: 1;
+    opacity: 1; /* 호버 시 정보 표시 */
 }
 
 /* 영화 제목 */
 .movie-title {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 1rem; /* 폰트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    margin-bottom: 0.5rem; /* 아래 간격 */
 }
 
 /* 영화 별점 */
 .movie-rating {
-    font-size: 0.9rem;
-    color: #a87de3;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
+    font-size: 0.9rem; /* 폰트 크기 */
+    color: #a87de3; /* 별점 색상 */
+    font-weight: bold; /* 굵은 글씨 */
+    display: flex; /* 가로로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    gap: 0.3rem; /* 별점과 별점 숫자 간 간격 */
 }
 
 /* 이미지가 없을 때 */
 .no-image-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #444;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    border-radius: 12px;
+    display: flex; /* flexbox로 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    background-color: #444; /* 배경색 */
+    color: #fff; /* 텍스트 색상 흰색 */
+    font-size: 1rem; /* 폰트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    width: 100%; /* 너비 100% */
+    height: 100%; /* 높이 100% */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    border-radius: 12px; /* 둥근 모서리 */
 }
