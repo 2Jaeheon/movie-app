@@ -14,6 +14,8 @@ on:
 
 jobs:
   # 테스트, 빌드 검증 및 성능, 웹 표준 테스트 작업
+  test_and_build:
+    runs-on: ubuntu-latest
     steps:
       # 코드 체크아웃
       - name: Checkout code
@@ -23,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22
 
       # 의존성 설치
       - name: Install dependencies
@@ -82,7 +84,7 @@ jobs:
         uses: actions/checkout@v3
 
       # Node.js 설정
-      - name: Use node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
