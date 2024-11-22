@@ -16,13 +16,6 @@ on:
 
 jobs:
   # 테스트, 빌드 검증 및 성능, 웹 표준 테스트 작업
-  test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [ 22 ]
-
     steps:
       # 코드 체크아웃
       - name: Checkout code
