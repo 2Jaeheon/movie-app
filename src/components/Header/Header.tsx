@@ -1,54 +1,153 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {isKakaoTokenValid} from "../../util/kakaoAuth"; // 카카오 토큰 유효성 검사 함수 가져오기
 import "./Header.css";
 
+// Toast 컴포넌트
+const Toast: React.FC<{ message: string; onClose: () => void }> = ({message, onClose}) => {
+    useEffect(() => {
+        const timer = setTimeout(onClose, 2000); // 3초 후 자동 닫힘
+        return () => clearTimeout(timer);
+    }, [onClose]);
+
+    return (
+        <div style={{
+            position: "fixed",
+            backgroundColor: "#333",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            zIndex: 1000,
+        }}>
+            {message}
+        </div>
+    );
+};
+
 interface HeaderProps {
-    isLoggedIn: boolean; // 로그인 상태
-    onLogout: () => void; // 로그아웃 함수
+    isLoggedIn: boolean;
+    onLogout: () => Promise<void>;
 }
 
 const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
-    const location = useLocation(); // 현재 URL 경로 가져오기
-    const [menuOpen, setMenuOpen] = useState(false); // 메뉴 열림 상태
-    const [isScrollingUp, setIsScrollingUp] = useState(true); // 스크롤 방향 상태 (위로 스크롤 중인지 확인)
-    const [lastScrollY, setLastScrollY] = useState(window.scrollY); // 마지막 스크롤 위치
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [isScrollingUp, setIsScrollingUp] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(window.scrollY);
+    const [nickname, setNickname] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null); // 에러 메시지 상태
 
     const toggleMenu = () => {
-        setMenuOpen((prev) => !prev); // 메뉴 열기/닫기 토글
+        setMenuOpen((prev) => !prev);
     };
 
     const closeMenu = () => {
-        setMenuOpen(false); // 메뉴 닫기
+        setMenuOpen(false);
     };
 
     useEffect(() => {
         const handleScroll = () => {
-            const currentScrollY = window.scrollY; // 현재 스크롤 위치
-
-            // 스크롤 방향에 따라 헤더 표시 여부 결정
+            const currentScrollY = window.scrollY;
             if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                setIsScrollingUp(false); // 아래로 스크롤, 헤더 숨기기
+                setIsScrollingUp(false);
             } else {
-                setIsScrollingUp(true); // 위로 스크롤, 헤더 표시
+                setIsScrollingUp(true);
+            }
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
+    useEffect(() => {
+        const fetchNickname = async () => {
+            if (!isLoggedIn) return;
+
+            try {
+                const accessToken = localStorage.getItem("accessToken");
+                if (!accessToken) throw new Error("Access token not found");
+
+                const response = await fetch("https://kapi.kakao.com/v2/user/me", {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user info");
+                }
+
+                const userInfo = await response.json();
+                setNickname(userInfo.properties.nickname);
+            } catch (error: any) {
+                setErrorMessage(error.message || "Failed to fetch nickname");
+                setNickname(null);
+            }
+        };
+
+        fetchNickname();
+    }, [isLoggedIn]);
+
+    const handleLogout = async () => {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+
+            if (!accessToken) {
+                window.location.reload();
+                return;
             }
 
-            setLastScrollY(currentScrollY); // 마지막 스크롤 위치 갱신
-        };
+            // 토큰 유효성 검사
+            const tokenValid = await isKakaoTokenValid();
 
-        window.addEventListener("scroll", handleScroll); // 스크롤 이벤트 리스너 추가
-        return () => {
-            window.removeEventListener("scroll", handleScroll); // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-        };
-    }, [lastScrollY]); // 마지막 스크롤 위치가 변경될 때마다 실행
+            if (!tokenValid) {
+                // 토큰이 유효하지 않으면 토큰 제거 및 로그인 페이지로 이동
+                localStorage.removeItem("accessToken");
+                window.location.reload();
+                return;
+            }
 
-    // 로그인하지 않은 사용자 메뉴
+            // 토큰이 유효한 경우 기존 로그아웃 로직 수행
+            const response = await fetch("https://kapi.kakao.com/v1/user/logout", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("카카오 로그아웃 실패. 다시 시도해주세요.");
+            }
+
+            // 카카오 계정 로그아웃 URL 설정
+            const clientId = process.env.REACT_APP_KAKAO_REST_API_KEY;
+            const redirectUri = encodeURIComponent(process.env.REACT_APP_LOGOUT_REDIRECT_URI || "");
+            const kakaoAccountLogoutUrl = `https://kauth.kakao.com/oauth/logout?client_id=${clientId}&logout_redirect_uri=${redirectUri}`;
+
+            // onLogout 호출 및 카카오 계정 로그아웃 처리
+            await onLogout();
+            window.location.href = kakaoAccountLogoutUrl;
+
+            // 로컬 스토리지에서 토큰 제거
+            localStorage.removeItem("accessToken");
+        } catch (error: any) {
+            // 에러 메시지 표시
+            setErrorMessage(error.message || "로그아웃 중 오류 발생");
+        }
+    };
+
     const guestMenu = (
         <>
             <li>
                 <Link
                     to="/movie-app/signin"
                     className={location.pathname === "/movie-app/signin" ? "active" : ""}
-                    onClick={closeMenu} // 메뉴 클릭 시 메뉴 닫기
+                    onClick={closeMenu}
                 >
                     Sign In
                 </Link>
@@ -56,7 +155,6 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
         </>
     );
 
-    // 로그인한 사용자 메뉴
     const userMenu = (
         <>
             <li>
@@ -96,13 +194,7 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
                 </Link>
             </li>
             <li>
-                <button
-                    className="logout-button"
-                    onClick={() => {
-                        onLogout(); // 로그아웃 함수 호출
-                        closeMenu(); // 메뉴 닫기
-                    }}
-                >
+                <button className="logout-button" onClick={handleLogout}>
                     Logout
                 </button>
             </li>
@@ -111,22 +203,26 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
 
     return (
         <header className={`header ${isScrollingUp ? "visible" : "hidden"}`}>
-            {/* 스크롤에 따라 헤더의 visibility 클래스 변경 */}
             <div className="logo">
                 <Link to="/movie-app/" onClick={closeMenu}>
                     🎬 Short Movies
                 </Link>
+                {nickname && <span className="welcome-message"> Welcome, {nickname}!</span>}
             </div>
             <div className="hamburger" onClick={toggleMenu}>
-                {/* 햄버거 메뉴 아이콘 클릭 시 메뉴 열기/닫기 */}
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
-                {/* 메뉴가 열리면 active 클래스 추가 */}
                 <ul>{isLoggedIn ? userMenu : guestMenu}</ul>
             </nav>
+            {errorMessage && (
+                <Toast
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)} // 토스트 닫기
+                />
+            )}
         </header>
     );
 };

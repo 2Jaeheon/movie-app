@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-.env
+.env.development
 # dependencies
 /node_modules
 /.pnp
@@ -189,3 +189,5 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,webstorm,react
+
+.env.*

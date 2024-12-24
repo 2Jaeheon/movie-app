@@ -107,7 +107,6 @@ src
 │   ├── MovieController.ts
 │   └── userPreferenceController.ts
 ├── hooks
-│   ├── useAuth.ts
 │   ├── useInfiniteScroll.ts
 │   ├── usePagination.ts
 │   └── usePreference.ts
