@@ -5,193 +5,170 @@
     align-items: center;
     height: 100vh; /* 화면 전체 높이 */
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* 그라데이션 배경 */
-    font-family: Arial, sans-serif; /* 기본 폰트 */
+    font-family: 'Roboto', Arial, sans-serif; /* 현대적인 폰트 */
     padding: 1rem; /* 모바일 여백 추가 */
+    animation: fadeIn 1.5s ease-in-out; /* 부드러운 페이드인 효과 */
+    text-align: center; /* 배경 내 텍스트 중앙 정렬 */
 }
 
 /* 카드 컨테이너 */
 .auth-card-container {
-    position: relative;
-    width: 480px; /* 카드 너비 */
-    height: 650px; /* 카드 높이 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 세로 정렬 */
+    width: 450px; /* 카드 너비 */
+    height: auto; /* 높이는 내용에 맞게 조정 */
     perspective: 1500px; /* 3D 효과 */
     transform-style: preserve-3d; /* 3D 변형 허용 */
     transition: transform 0.8s ease; /* 전환 효과 */
+    background: rgba(255, 255, 255, 0.95); /* 살짝 투명한 흰색 배경 */
+    border-radius: 20px; /* 둥근 모서리 */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); /* 부드러운 그림자 */
+    overflow: hidden; /* 경계선 넘는 요소 숨기기 */
+    animation: popUp 0.8s ease-out; /* 팝업 효과 */
+    padding: 2rem; /* 내부 여백 추가 */
+    text-align: center; /* 카드 내용 중앙 정렬 */
 }
 
-/* 로그인과 회원가입 화면 간 전환 효과 */
-.auth-card-container.flip {
-    transform: rotateY(180deg); /* 180도 회전 */
+/* 팝업 애니메이션 */
+@keyframes popUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-/* 개별 카드 */
-.auth-card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white; /* 카드 배경색 */
-    padding: 3rem; /* 카드 내부 여백 */
-    border-radius: 15px; /* 둥근 모서리 */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 카드 그림자 */
-    backface-visibility: hidden; /* 뒤집었을 때 보이지 않도록 설정 */
-    transform-style: preserve-3d; /* 3D 변형 허용 */
-}
-
-.auth-card.front {
-    transform: rotateY(0deg); /* 로그인 화면 */
-}
-
-.auth-card.back {
-    transform: rotateY(180deg); /* 회원가입 화면 */
-}
-
-/* 공통 스타일 */
+/* 카드 제목 */
 .auth-title {
-    font-size: 2rem; /* 제목 크기 */
-    font-weight: bold; /* 제목 두께 */
-    text-align: center; /* 제목 가운데 정렬 */
-    margin-bottom: 1rem; /* 아래 여백 */
-    color: #121212; /* 제목 색상 */
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-bottom: 1.5rem;
+    color: #121212; /* 다크 그레이 */
+    text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.3); /* 부드러운 텍스트 그림자 */
+    animation: fadeIn 1s ease-in-out;
 }
 
-.auth-subtitle {
-    text-align: center; /* 부제목 가운데 정렬 */
-    font-size: 1rem; /* 부제목 크기 */
-    margin-bottom: 2rem; /* 아래 여백 */
-    color: black; /* 부제목 색상 */
+/* 닉네임 메시지 */
+#welcome-name {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #444;
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-top: 1rem;
+    animation: fadeIn 1s ease-in;
 }
 
-.input-wrapper {
-    margin-bottom: 1.5rem; /* 입력 필드 간 간격 */
+/* 이동 메시지 */
+.transition-message {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-top: 0.8rem;
+    font-style: italic;
+    animation: fadeIn 1.2s ease-in;
 }
 
-.error-message {
-    color: #dc3545; /* 오류 메시지 색상 */
-    font-size: 0.9rem; /* 오류 메시지 크기 */
-    margin-top: -0.5rem; /* 위 여백 */
-    margin-bottom: 1rem; /* 아래 여백 */
+/* 프로필 이미지 */
+.auth-card img {
+    display: block; /* 이미지가 중앙 정렬되도록 설정 */
+    margin: 1rem auto; /* 수평 중앙 정렬 */
+    width: 130px;
+    height: 130px;
+    border-radius: 50%; /* 원형 이미지 */
+    border: 4px solid #ff758c; /* 테두리 강조 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
+    animation: popUp 1s ease-out;
 }
 
-.auth-button {
-    width: 100%; /* 버튼 너비 */
-    padding: 1rem; /* 버튼 패딩 */
-    border: none;
-    border-radius: 8px; /* 둥근 모서리 */
-    background: linear-gradient(90deg, #6a11cb, #2575fc); /* 버튼 배경 그라데이션 */
-    color: white; /* 버튼 텍스트 색상 */
-    font-size: 1.1rem; /* 버튼 텍스트 크기 */
-    font-weight: bold; /* 버튼 텍스트 두께 */
-    cursor: pointer; /* 마우스 커서 */
-    transition: all 0.3s ease; /* 버튼 전환 효과 */
-}
-
-/* hover 효과 */
-.auth-button:hover {
-    transform: scale(1.05); /* 버튼 크기 살짝 확대 */
-    box-shadow: 0 8px 20px rgba(102, 51, 153, 0.4); /* 버튼 그림자 효과 강화 */
-}
-
-/* 클릭 활성화 상태 */
-.auth-button:active {
-    transform: scale(0.98); /* 버튼 크기 살짝 축소 */
-    box-shadow: 0 2px 10px rgba(102, 51, 153, 0.2); /* 버튼 그림자 효과 약화 */
-}
-
-.auth-link {
-    margin-top: 1rem; /* 상단 여백 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    color: black; /* 링크 텍스트 색상 */
-    font-size: 0.9rem; /* 링크 텍스트 크기 */
-}
-
-.auth-link .link {
-    color: #6a11cb; /* 링크 텍스트 색상 */
-    cursor: pointer; /* 마우스 커서 */
-    text-decoration: underline; /* 링크 밑줄 */
-}
-
-/* 약관 모달 */
-.terms-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+/* 사용자 정보 컨테이너 */
+.user-info {
     display: flex;
-    justify-content: center; /* 모달 가운데 정렬 */
-    align-items: center; /* 모달 세로 가운데 정렬 */
-    color: black;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 세로 중앙 정렬 */
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(240, 240, 240, 0.8); /* 약간 밝은 배경 */
+    border-radius: 12px; /* 둥근 모서리 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    animation: fadeIn 1.5s ease-in;
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
-/* 모달 내용 */
-.modal-service {
-    padding: 20px;
-    background: white; /* 모달 배경색 */
-    border-radius: 5px; /* 모달 둥근 모서리 */
-    max-width: 600px; /* 최대 너비 */
-    width: 90%; /* 너비 */
-    color: black;
+/* 사용자 이메일 */
+.user-info p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0.5rem 0;
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
-/* 모달 닫기 버튼 */
-.close-modal-button {
-    background-color: #007bff; /* 버튼 배경색 */
-    color: white; /* 버튼 텍스트 색상 */
-    padding: 10px;
+/* 로그인 버튼 */
+.auth-button {
+    width: 90%;
+    padding: 1rem;
+    margin-top: 2rem;
     border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff7eb3, #ff758c); /* 핑크 그라데이션 */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 20px; /* 위 여백 */
-    border-radius: 5px; /* 버튼 둥근 모서리 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 87, 87, 0.2);
 }
 
-/* 모달 닫기 버튼 hover 효과 */
-.close-modal-button:hover {
-    background-color: #0056b3; /* 버튼 hover 시 색상 변화 */
+/* 로그인 버튼 hover 효과 */
+.auth-button:hover {
+    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(255, 87, 87, 0.4);
 }
 
-/* 링크 스타일 */
-.link {
-    color: #476b4b; /* 링크 텍스트 색상 */
-    margin-left: 10px; /* 링크 간격 */
-    cursor: pointer; /* 마우스 커서 */
+/* 로그인 버튼 active 상태 */
+.auth-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(255, 87, 87, 0.2);
 }
 
 /* 모바일 최적화 */
 @media (max-width: 768px) {
     .auth-card-container {
-        width: 100%; /* 카드 너비 100% */
-        max-width: 340px; /* 카드 최대 너비 */
-        height: 590px; /* 카드 높이 */
+        width: 90%;
+        padding: 1.5rem;
     }
 
-    .auth-card {
-        padding: 2rem; /* 내부 여백 줄이기 */
+    #welcome-name {
+        font-size: 1.4rem;
     }
 
     .auth-title {
-        font-size: 1.5rem; /* 제목 크기 줄이기 */
+        font-size: 1.8rem;
     }
 
-    .auth-subtitle {
-        font-size: 0.8rem; /* 부제목 크기 줄이기 */
+    .auth-card img {
+        width: 100px;
+        height: 100px;
     }
 
-    .auth-button {
-        font-size: 1rem; /* 버튼 텍스트 크기 줄이기 */
-        padding: 0.8rem; /* 버튼 패딩 줄이기 */
+    .transition-message {
+        font-size: 1rem;
     }
+}
 
-    .input-wrapper {
-        margin-bottom: 0.6rem; /* 입력 필드 간격 줄이기 */
+/* 페이드인 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
-
-    .error-message {
-        font-size: 0.8rem; /* 에러 메시지 크기 줄이기 */
-    }
-
-    .link {
-        margin-left: 3px; /* 링크 간격 줄이기 */
-        font-size: 14px;
+    to {
+        opacity: 1;
     }
 }

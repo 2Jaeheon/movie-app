@@ -1,155 +1,193 @@
 /* General Header Styles */
 .header {
-    display: flex; /* flexbox로 배치 */
-    justify-content: space-between; /* 양 끝에 아이템 배치 */
-    align-items: center; /* 세로 중앙 정렬 */
-    padding: 1rem 2rem; /* 상하 1rem, 좌우 2rem 여백 */
-    background-color: #508d53; /* 헤더 배경색 */
-    color: white; /* 텍스트 색상 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더에 그림자 효과 */
-    position: fixed; /* 화면 상단에 고정 */
-    width: 100%; /* 전체 너비 */
-    top: 0; /* 상단에 고정 */
-    left: 0; /* 좌측에 고정 */
-    z-index: 1000; /* 다른 요소들보다 위에 표시 */
-    transform: translateY(0); /* 스크롤에 따라 헤더 위치 조정 */
-    transition: transform 0.3s ease-in-out, background-color 0.3s; /* 부드러운 트랜지션 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #508d53;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
 }
 
 .header.hidden {
-    transform: translateY(-100%); /* 헤더를 화면 밖으로 이동 */
+    transform: translateY(-100%);
 }
 
 .header.visible {
-    transform: translateY(0); /* 헤더를 화면에 표시 */
+    transform: translateY(0);
 }
 
+/* 로고와 Welcome 메시지 */
 .logo {
-    font-size: 1.7rem; /* 로고 폰트 크기 */
-    font-weight: bold; /* 로고 폰트 두께 */
+    display: flex; /* 로고와 메시지를 가로로 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 0.5rem; /* 로고와 메시지 간 간격 */
+    font-size: 1.7rem; /* 로고 크기 */
+    font-weight: bold;
 }
 
 .logo a {
-    text-decoration: none; /* 링크에 기본 밑줄 제거 */
-    color: white; /* 로고 링크 색상 */
-    transition: color 0.3s; /* 색상 변화에 부드러운 트랜지션 */
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
 }
 
 .logo a:hover {
-    color: #ffc107; /* 마우스 오버 시 색상 변경 */
+    color: #ffc107;
+}
+
+/* Welcome 메시지 스타일 */
+.welcome-message {
+    font-size: 1rem; /* 닉네임 크기 */
+    color: #ffc107; /* 강조 색상 */
+    font-weight: 600; /* 굵은 글씨 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.welcome-message::before {
+    content: "👋"; /* 웰컴 아이콘 추가 */
+    font-size: 1.2rem; /* 아이콘 크기 */
+}
+
+/* Logo Styles */
+.logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.logo a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.logo a:hover {
+    color: #ffc107;
 }
 
 /* Navigation Menu */
 .nav-menu {
-    display: flex; /* 메뉴를 가로로 배치 */
-    align-items: center; /* 세로 중앙 정렬 */
+    display: flex;
+    align-items: center;
 }
 
 .nav-menu ul {
-    list-style: none; /* 기본 리스트 스타일 제거 */
-    display: flex; /* 메뉴 항목들을 가로로 배치 */
-    gap: 1.6rem; /* 메뉴 항목 간 간격 */
+    list-style: none;
+    display: flex;
+    gap: 1.6rem;
     margin: 0;
     padding: 0;
 }
 
 .nav-menu a {
-    text-decoration: none; /* 링크에 기본 밑줄 제거 */
-    color: white; /* 링크 색상 */
-    font-weight: 600; /* 링크 글씨 두께 */
-    transition: color 0.3s, transform 0.3s; /* 색상과 변형에 부드러운 트랜지션 */
-    font-size: large; /* 링크 폰트 크기 */
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: color 0.3s, transform 0.3s;
+    font-size: large;
 }
 
 .nav-menu a.active {
-    color: #ffc107; /* 활성화된 링크 색상 */
+    color: #ffc107;
 }
 
 .nav-menu a:hover {
-    color: #ffc107; /* 마우스 오버 시 링크 색상 변경 */
-    transform: translateY(-2px); /* 마우스 오버 시 링크 위로 살짝 이동 */
+    color: #ffc107;
+    transform: translateY(-2px);
 }
 
 .logout-button {
-    border: none; /* 테두리 없음 */
-    border-radius: 6px; /* 둥근 모서리 */
-    padding: 0.3rem 1.0rem; /* 버튼 안쪽 여백 */
-    color: black; /* 버튼 글자 색상 */
-    font-weight: bold; /* 버튼 글씨 두께 */
-    cursor: pointer; /* 클릭 가능한 커서 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s; /* 변형, 그림자, 배경 변화에 부드러운 트랜지션 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 버튼 그림자 */
-    text-align: center; /* 버튼 글자 중앙 정렬 */
-    font-size: 0.9rem; /* 버튼 폰트 크기 */
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 1.0rem;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 0.9rem;
 }
 
 .logout-button:hover {
-    transform: translateY(-3px); /* 마우스 오버 시 버튼 위로 살짝 이동 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 마우스 오버 시 그림자 효과 */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .logout-button:active {
-    transform: translateY(0); /* 클릭 시 버튼 위치 복원 */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 효과 */
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
-        display: none; /* 기본적으로 메뉴 숨김 */
-        flex-direction: column; /* 세로로 배치 */
-        width: 100%; /* 전체 너비 */
-        background-color: #3e6f42; /* 메뉴 배경색 */
-        position: absolute; /* 절대 위치로 고정 */
-        top: 100%; /* 화면 상단 아래에 위치 */
-        left: 0; /* 좌측에 위치 */
-        transform: translateY(-100%); /* 메뉴 숨김 상태 */
-        opacity: 0; /* 메뉴 불투명 */
-        transition: transform 0.3s ease, opacity 0.3s ease; /* 트랜지션 효과 */
-        text-align: center; /* 메뉴 텍스트 중앙 정렬 */
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #3e6f42;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        text-align: center;
     }
 
     .nav-menu.active {
-        display: flex; /* 활성화된 메뉴만 표시 */
-        transform: translateY(0); /* 메뉴 표시 */
-        opacity: 1; /* 메뉴 투명도 */
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
     }
 
     .nav-menu ul {
-        display: grid; /* 그리드로 메뉴 항목 배치 */
-        grid-template-columns: 1fr; /* 1열로 배치 */
-        grid-template-rows: repeat(4, auto); /* 4개의 자동 높이 행으로 배치 */
-        gap: 1rem; /* 항목 간 간격 */
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+        gap: 1rem;
     }
 
     .hamburger {
-        display: flex; /* 햄버거 아이콘 배치 */
-        flex-direction: column; /* 세로로 배치 */
-        justify-content: center; /* 가운데 정렬 */
-        align-items: center; /* 가운데 정렬 */
-        cursor: pointer; /* 클릭 가능한 커서 */
-        width: 30px; /* 아이콘 너비 */
-        height: 30px; /* 아이콘 높이 */
-        gap: 4px; /* 아이콘 간 간격 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        gap: 4px;
     }
 
     .hamburger span {
-        display: block; /* 각 막대는 블록 요소로 설정 */
-        width: 100%; /* 너비 100% */
-        height: 3px; /* 높이 3px */
-        background: white; /* 흰색 막대 */
-        transition: all 0.3s ease-in-out; /* 애니메이션 트랜지션 */
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: white;
+        transition: all 0.3s ease-in-out;
     }
 
     .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px); /* 첫 번째 막대가 45도 회전 */
+        transform: rotate(45deg) translate(5px, 5px);
     }
 
     .hamburger.active span:nth-child(2) {
-        opacity: 0; /* 두 번째 막대는 투명 처리 */
+        opacity: 0;
     }
 
     .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px); /* 세 번째 막대가 -45도 회전 */
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .welcome-message {
+        font-size: 0.9rem; /* 반응형 환경에서 글씨 크기 축소 */
+        margin-right: 0.5rem; /* 적절한 간격 */
     }
 }

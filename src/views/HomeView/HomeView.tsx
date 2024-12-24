@@ -74,7 +74,7 @@ const HomeView: React.FC = () => {
                 return () => clearInterval(bannerInterval);
 
             } catch (err) {
-                setError("API 호출 실패: TMDB API 키를 확인해주세요."); // API 호출 실패 시 에러 메시지 설정
+                setError("계정 및 API 호출 문제 발생"); // API 호출 실패 시 에러 메시지 설정
             }
         };
 
