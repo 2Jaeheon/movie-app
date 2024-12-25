@@ -76,7 +76,6 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const REDIRECT_URI = process.env.REACT_APP_LOGIN_REDRIRECT_URI;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
     const getUserInfo = useCallback(async (accessToken: string) => {
         const userInfoUrl = "https://kapi.kakao.com/v2/user/me";
 
@@ -95,10 +94,8 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
 
             onLogin();
 
-            setTimeout(() => {
-                setIsWelcomeVisible(false);
-                navigate("/movie-app");
-            }, 2000);
+            // 바로 홈 화면으로 이동
+            navigate("/movie-app/");
         } catch (error: any) {
             setErrorMessage(error.message || "Error getting user info");
         }
