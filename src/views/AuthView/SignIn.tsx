@@ -1,26 +1,27 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 import "./AuthView.css";
 
-// Toast 컴포넌트
 const Toast: React.FC<{ message: string; onClose: () => void }> = ({message, onClose}) => {
     useEffect(() => {
-        const timer = setTimeout(onClose, 3000); // 3초 후 자동 닫힘
+        const timer = setTimeout(onClose, 3000);
         return () => clearTimeout(timer);
     }, [onClose]);
 
     return (
-        <div style={{
-            position: "fixed",
-            bottom: "20px",
-            right: "20px",
-            backgroundColor: "#333",
-            color: "#fff",
-            padding: "10px 20px",
-            borderRadius: "5px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            zIndex: 1000,
-        }}>
+        <div
+            style={{
+                position: "fixed",
+                bottom: "20px",
+                right: "20px",
+                backgroundColor: "#333",
+                color: "#fff",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                zIndex: 1000,
+            }}
+        >
             {message}
         </div>
     );
@@ -68,50 +69,14 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
     const [userInfo, setUserInfo] = useState<KakaoUserInfo | null>(null);
     const [isWelcomeVisible, setIsWelcomeVisible] = useState(false);
     const [isTokenFetched, setIsTokenFetched] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null); // 에러 메시지 상태
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
     const REDIRECT_URI = process.env.REACT_APP_LOGIN_REDRIRECT_URI;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-    useEffect(() => {
-        const code = new URL(window.location.href).searchParams.get("code");
-        if (code && !isTokenFetched) {
-            setIsTokenFetched(true);
-            getToken(code);
-
-            const newUrl = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, newUrl);
-        }
-    }, [isTokenFetched]);
-
-    const getToken = async (code: string) => {
-        const tokenUrl = "https://kauth.kakao.com/oauth/token";
-        const data: Record<string, string> = {
-            grant_type: "authorization_code",
-            client_id: REST_API_KEY || "", // undefined일 경우 빈 문자열로 처리
-            redirect_uri: REDIRECT_URI || "", // undefined일 경우 빈 문자열로 처리
-            code,
-        };
-
-        try {
-            const response = await fetch(tokenUrl, {
-                method: "POST",
-                headers: {"Content-Type": "application/x-www-form-urlencoded;charset=utf-8"},
-                body: new URLSearchParams(data).toString(),
-            });
-
-            if (!response.ok) throw new Error("Failed to get token");
-
-            const tokenData: KakaoAuthResponse = await response.json();
-            await getUserInfo(tokenData.access_token);
-        } catch (error: any) {
-            setErrorMessage(error.message || "Error getting token"); // 에러 메시지 설정
-        }
-    };
-
-    const getUserInfo = async (accessToken: string) => {
+    const getUserInfo = useCallback(async (accessToken: string) => {
         const userInfoUrl = "https://kapi.kakao.com/v2/user/me";
 
         try {
@@ -127,21 +92,54 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
             setIsWelcomeVisible(true);
             localStorage.setItem("accessToken", accessToken);
 
-
-            console.log("User Info:", userData.id, userData.properties.nickname, userData.kakao_account.email);
-            console.log("User Profile:", userData.properties.profile_image);
-            console.log("User Profile:", userData.properties.thumbnail_image);
-
-            onLogin(); // 로그인 상태 업데이트
+            onLogin();
 
             setTimeout(() => {
                 setIsWelcomeVisible(false);
                 navigate("/movie-app");
             }, 2000);
         } catch (error: any) {
-            setErrorMessage(error.message || "Error getting user info"); // 에러 메시지 설정
+            setErrorMessage(error.message || "Error getting user info");
         }
-    };
+    }, [onLogin, navigate]);
+
+    const getToken = useCallback(
+        async (code: string) => {
+            const tokenUrl = "https://kauth.kakao.com/oauth/token";
+            const data: Record<string, string> = {
+                grant_type: "authorization_code",
+                client_id: REST_API_KEY || "",
+                redirect_uri: REDIRECT_URI || "",
+                code,
+            };
+
+            try {
+                const response = await fetch(tokenUrl, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/x-www-form-urlencoded;charset=utf-8"},
+                    body: new URLSearchParams(data).toString(),
+                });
+
+                if (!response.ok) throw new Error("Failed to get token");
+
+                const tokenData: KakaoAuthResponse = await response.json();
+                await getUserInfo(tokenData.access_token);
+            } catch (error: any) {
+                setErrorMessage(error.message || "Error getting token");
+            }
+        },
+        [REST_API_KEY, REDIRECT_URI, getUserInfo]
+    );
+
+    useEffect(() => {
+        const code = new URL(window.location.href).searchParams.get("code");
+        if (code && !isTokenFetched) {
+            setIsTokenFetched(true);
+            getToken(code);
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    }, [isTokenFetched, getToken]);
 
     const handleLogin = () => {
         window.location.href = KAKAO_AUTH_URL;
@@ -195,7 +193,7 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
             {errorMessage && (
                 <Toast
                     message={errorMessage}
-                    onClose={() => setErrorMessage(null)} // 토스트 닫기
+                    onClose={() => setErrorMessage(null)}
                 />
             )}
         </div>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {isKakaoTokenValid} from "../../util/kakaoAuth"; // 카카오 토큰 유효성 검사 함수 가져오기
 import "./Header.css";
 
@@ -32,7 +32,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({isLoggedIn, onLogout}) => {
     const location = useLocation();
-    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [isScrollingUp, setIsScrollingUp] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(window.scrollY);
