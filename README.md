@@ -24,9 +24,15 @@ Wishlist에 추가한 영화는 사용자가 원하는 시기에 다시 볼 수 
 
 TMDB API를 사용하여 영화 데이터를 가져왔습니다.
 
-[TMDB API](https://www.themoviedb.org/documentation/api)를 회원가입 시 비밀번호로 입력하면 영화 데이터 조회가 가능합니다.\
-또한 TMDB API를 사용하기 위해서는 API Key가 필요합니다.\
-API Key는 TMDB 사이트에서 발급받을 수 있습니다.
+[TMDB API](https://www.themoviedb.org/documentation/api)는 Github Actions Secret에 설정하여\
+배포시 자동으로 데이터를 가져올 수 있습니다.
+
+
+# Kakao Login
+
+기존의 로그인과정을 KAKAO로그인 과정으로 대체했습니다.
+환경 변수들은 github Actions Secret에 설정해두었습니다.
+Direct URI는 workflow 코드에서 직관적으로 확인이 가능한 편이 좋아 Secret 처리 하지 않았습니다.
 
 # 실행 방법
 
