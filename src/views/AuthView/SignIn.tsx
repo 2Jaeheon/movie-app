@@ -8,6 +8,7 @@ const Toast: React.FC<{ message: string; onClose: () => void }> = ({message, onC
         return () => clearTimeout(timer);
     }, [onClose]);
 
+
     return (
         <div
             style={{
