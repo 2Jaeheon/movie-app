@@ -1,183 +1,201 @@
-import React, {useState} from "react";
-import InputField from "../../components/common/InputField";
-import {useAuth} from "../../hooks/useAuth";
-import Toast from "../../components/common/Toast"; // Toast 컴포넌트 임포트
+import React, {useEffect, useState, useCallback} from "react";
+import {useNavigate} from "react-router-dom";
 import "./AuthView.css";
 
-const SignIn: React.FC = () => {
-    const [isSignUp, setIsSignUp] = useState(false); // 로그인/회원가입 모드 전환 상태
-    const [toastMessage, setToastMessage] = useState<string>(""); // Toast 메시지 상태
-    const [toastVisible, setToastVisible] = useState<boolean>(false); // Toast 표시 여부 상태
-    const [toastType, setToastType] = useState<"success" | "error">("success"); // Toast 타입 (성공/오류)
-    const [isAgree, setIsAgree] = useState(false); // 약관 동의 여부 상태
-    const [isModalVisible, setIsModalVisible] = useState(false); // 약관 모달 표시 여부 상태
+const Toast: React.FC<{ message: string; onClose: () => void }> = ({message, onClose}) => {
+    useEffect(() => {
+        const timer = setTimeout(onClose, 3000);
+        return () => clearTimeout(timer);
+    }, [onClose]);
 
-    // useAuth 훅을 사용하여 로그인 및 회원가입 처리
-    const {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        confirmPassword,
-        setConfirmPassword,
-        error,
-        signIn,
-        signUp,
-    } = useAuth(() => {
-        setToastType("success");
-        setToastMessage(isSignUp ? "Account created successfully!" : "Logged in successfully!");
-        setToastVisible(true);
-        if (isSignUp) setIsSignUp(false); // 회원가입 성공 시 로그인 화면으로 전환
-    });
+    return (
+        <div
+            style={{
+                position: "fixed",
+                bottom: "20px",
+                right: "20px",
+                backgroundColor: "#333",
+                color: "#fff",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                zIndex: 1000,
+            }}
+        >
+            {message}
+        </div>
+    );
+};
 
-    // Toast 닫기 함수
-    const handleToastClose = () => {
-        setToastVisible(false);
+interface KakaoAuthResponse {
+    access_token: string;
+    token_type: string;
+    refresh_token: string;
+    expires_in: number;
+    scope: string;
+    refresh_token_expires_in: number;
+}
+
+interface KakaoUserInfo {
+    id: number;
+    connected_at: string;
+    properties: {
+        nickname: string;
+        profile_image?: string;
+        thumbnail_image?: string;
     };
+    kakao_account: {
+        profile_nickname_needs_agreement: boolean;
+        profile_image_needs_agreement: boolean;
+        profile: {
+            nickname: string;
+            thumbnail_image_url?: string;
+            profile_image_url?: string;
+            is_default_image: boolean;
+        };
+        has_email: boolean;
+        email_needs_agreement: boolean;
+        is_email_valid: boolean;
+        is_email_verified: boolean;
+        email: string;
+    };
+}
 
-    // 모달 토글 함수
-    const toggleModal = () => {
-        setIsModalVisible(!isModalVisible); // 모달을 열고 닫는 함수
+interface SignInProps {
+    onLogin: () => void;
+}
+
+const SignIn: React.FC<SignInProps> = ({onLogin}) => {
+    const [userInfo, setUserInfo] = useState<KakaoUserInfo | null>(null);
+    const [isWelcomeVisible, setIsWelcomeVisible] = useState(false);
+    const [isTokenFetched, setIsTokenFetched] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const navigate = useNavigate();
+
+    const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+    const REDIRECT_URI = process.env.REACT_APP_LOGIN_REDRIRECT_URI;
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    const getUserInfo = useCallback(async (accessToken: string) => {
+        const userInfoUrl = "https://kapi.kakao.com/v2/user/me";
+
+        try {
+            const response = await fetch(userInfoUrl, {
+                headers: {Authorization: `Bearer ${accessToken}`},
+            });
+
+            if (!response.ok) throw new Error("Failed to get user info");
+
+            const userData: KakaoUserInfo = await response.json();
+            setUserInfo(userData);
+
+            setIsWelcomeVisible(true);
+            localStorage.setItem("accessToken", accessToken);
+
+            onLogin();
+
+            setTimeout(() => {
+                setIsWelcomeVisible(false);
+                navigate("/movie-app");
+            }, 2000);
+        } catch (error: any) {
+            setErrorMessage(error.message || "Error getting user info");
+        }
+    }, [onLogin, navigate]);
+
+    const getToken = useCallback(
+        async (code: string) => {
+            const tokenUrl = "https://kauth.kakao.com/oauth/token";
+            const data: Record<string, string> = {
+                grant_type: "authorization_code",
+                client_id: REST_API_KEY || "",
+                redirect_uri: REDIRECT_URI || "",
+                code,
+            };
+
+            try {
+                const response = await fetch(tokenUrl, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/x-www-form-urlencoded;charset=utf-8"},
+                    body: new URLSearchParams(data).toString(),
+                });
+
+                if (!response.ok) throw new Error("Failed to get token");
+
+                const tokenData: KakaoAuthResponse = await response.json();
+                await getUserInfo(tokenData.access_token);
+            } catch (error: any) {
+                setErrorMessage(error.message || "Error getting token");
+            }
+        },
+        [REST_API_KEY, REDIRECT_URI, getUserInfo]
+    );
+
+    useEffect(() => {
+        const code = new URL(window.location.href).searchParams.get("code");
+        if (code && !isTokenFetched) {
+            setIsTokenFetched(true);
+            getToken(code);
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    }, [isTokenFetched, getToken]);
+
+    const handleLogin = () => {
+        window.location.href = KAKAO_AUTH_URL;
     };
 
     return (
         <div className="auth-background">
-            <div className={`auth-card-container ${isSignUp ? "flip" : ""}`}>
-                {/* 로그인 카드 */}
+            <div className="auth-card-container">
                 <div className="auth-card front">
-                    <h1 className="auth-title">Welcome Back!</h1>
-                    <p className="auth-subtitle">Sign in to continue</p>
-                    <div className="input-wrapper">
-                        {/* 이메일 입력 필드 */}
-                        <InputField
-                            label="Email"
-                            type="text"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={setEmail}
-                        />
-                    </div>
-                    <div className="input-wrapper">
-                        {/* 비밀번호 입력 필드 */}
-                        <InputField
-                            label="Password"
-                            type="password"
-                            placeholder="Enter your password"
-                            value={password}
-                            onChange={setPassword}
-                        />
-                    </div>
-                    {error && <p className="error-message">{error}</p>} {/* 로그인 오류 메시지 표시 */}
-                    <button className="auth-button" onClick={signIn}>
-                        Sign In
-                    </button>
-                    <p className="auth-link">
-                        Don't have an account?{" "}
-                        <span className="link" onClick={() => setIsSignUp(true)}>
-                            Sign Up
-                        </span>
-                    </p>
-                </div>
-
-                {/* 회원가입 카드 */}
-                <div className="auth-card back">
-                    <h1 className="auth-title">Create an Account</h1>
-                    <p className="auth-subtitle">Join us and explore great movies!</p>
-                    <div className="input-wrapper">
-                        {/* 이메일 입력 필드 */}
-                        <InputField
-                            label="Email"
-                            type="text"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={setEmail}
-                        />
-                    </div>
-                    <div className="input-wrapper">
-                        {/* 비밀번호 입력 필드 */}
-                        <InputField
-                            label="Password"
-                            type="password"
-                            placeholder="Enter your password"
-                            value={password}
-                            onChange={setPassword}
-                        />
-                    </div>
-                    <div className="input-wrapper">
-                        {/* 비밀번호 확인 입력 필드 */}
-                        <InputField
-                            label="Confirm Password"
-                            type="password"
-                            placeholder="Confirm your password"
-                            value={confirmPassword}
-                            onChange={setConfirmPassword}
-                        />
-                    </div>
-                    {error && <p className="error-message">{error}</p>} {/* 회원가입 오류 메시지 표시 */}
-                    <div className="terms-checkbox">
-                        {/* 약관 동의 체크박스 */}
-                        <input
-                            type="checkbox"
-                            id="termsAgree"
-                            checked={isAgree}
-                            onChange={() => setIsAgree(!isAgree)}
-                        />
-                        <label htmlFor="termsAgree">
-                            <span className="link" onClick={toggleModal}>
-                                I agree to the Terms and Conditions
-                            </span>
-                        </label>
-                    </div>
-
-                    <button
-                        className="auth-button"
-                        onClick={signUp}
-                        disabled={!isAgree} // 약관에 동의하지 않으면 회원가입 버튼 비활성화
-                    >
-                        Sign Up
-                    </button>
-                    <p className="auth-link">
-                        Already have an account?{" "}
-                        <span className="link" onClick={() => setIsSignUp(false)}>
-                            Sign In
-                        </span>
-                    </p>
+                    {isWelcomeVisible ? (
+                        <div>
+                            <h1 className="auth-title">Welcome, {userInfo?.properties?.nickname}!</h1>
+                            {userInfo?.properties?.profile_image && (
+                                <img
+                                    src={userInfo.properties.profile_image}
+                                    width="120"
+                                    height="120"
+                                    alt="Profile"
+                                    style={{borderRadius: "50%", marginTop: "1rem"}}
+                                />
+                            )}
+                            <p style={{marginTop: "1rem", fontSize: "1.1rem", color: "#333"}}>
+                                2초 후 페이지로 이동합니다...
+                            </p>
+                        </div>
+                    ) : (
+                        <>
+                            <h1 className="auth-title">Welcome to Our Service!</h1>
+                            {userInfo ? (
+                                <div>
+                                    <p id="welcome-name">Welcome, {userInfo.properties?.nickname || "User"}!</p>
+                                    {userInfo.properties?.profile_image && (
+                                        <img
+                                            src={userInfo.properties.profile_image}
+                                            width="100"
+                                            height="100"
+                                            alt="Profile"
+                                        />
+                                    )}
+                                    <p>Email: {userInfo.kakao_account?.email || "Not Provided"}</p>
+                                </div>
+                            ) : (
+                                <button className="auth-button" onClick={handleLogin}>
+                                    Login with Kakao
+                                </button>
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
-
-            {/* 약관 모달 */}
-            {isModalVisible && (
-                <div className="terms-modal">
-                    <div className="modal-service">
-                        <h2>Terms and Conditions</h2>
-                        <p>
-                            {/* 실제 약관 텍스트를 여기에 작성 */}
-                            1. 서비스 이용 약관 동의
-                            본 서비스 이용약관(이하 "약관")에 동의함에 있어 다음 사항을 확인하고 동의합니다.<br/><br/>
-                            1.1 개인정보 수집 및 이용 동의
-                            서비스 제공을 위해 필요한 최소한의 개인정보를 수집합니다. 수집된 개인정보는 서비스 목적 외 다른 용도로 사용하지 않습니다.<br/><br/>
-                            1.2 서비스 이용 조건<br/>
-                            서비스 이용 시 관련 법규 및 약관을 준수해야 합니다.
-                            부적절한 이용 행위 발견 시 서비스 이용을 제한할 수 있습니다.<br/><br/>
-                            2. 개인정보 처리방침<br/>
-                            2.1 개인정보의 수집 및 이용 목적<br/><br/>
-                            2.2 수집하는 개인정보 항목<br/>
-                            필수 정보: 이메일 주소
-                        </p>
-                        <button onClick={toggleModal} className="close-modal-button">
-                            Close
-                        </button>
-                    </div>
-                </div>
+            {errorMessage && (
+                <Toast
+                    message={errorMessage}
+                    onClose={() => setErrorMessage(null)}
+                />
             )}
-
-            {/* Toast 컴포넌트 */}
-            <Toast
-                message={toastMessage}
-                type={toastType}
-                isVisible={toastVisible}
-                onClose={handleToastClose} // Toast 닫기 처리
-            />
         </div>
     );
 };
