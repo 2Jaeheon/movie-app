@@ -86,8 +86,16 @@ const SignIn: React.FC<SignInProps> = ({onLogin}) => {
 
             if (!response.ok) throw new Error("Failed to get user info");
 
+
             const userData: KakaoUserInfo = await response.json();
             setUserInfo(userData);
+
+            console.log("userData", userData);
+            console.log("nickname", userData.properties.nickname);
+            console.log("profile_image", userData.properties.profile_image);
+            console.log("profile_image_url", userData.kakao_account.profile.profile_image_url);
+            console.log("email", userData.kakao_account.email);
+
 
             setIsWelcomeVisible(true);
             localStorage.setItem("accessToken", accessToken);
