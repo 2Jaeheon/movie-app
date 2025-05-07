@@ -58,7 +58,7 @@ jobs:
 
       # W3C 유효성 검사 결과 업로드
       - name: Upload W3C validation results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: w3c-validation
           path: './build/index.html'
